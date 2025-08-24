@@ -1,0 +1,19 @@
+<div class="register-card">
+    <h2>User Registration</h2>
+  
+    <!-- Success/Error Message -->
+    <div class="form-message" *ngIf="message" [ngClass]="{'success': success, 'error': !success}">
+      {{ message }}
+    </div>
+  
+    <form (ngSubmit)="onRegister()">
+      <input type="text" placeholder="Username" [(ngModel)]="registerData.username" name="username" required>
+      <input type="password" placeholder="Password" [(ngModel)]="registerData.password" name="password" required>
+      <button type="submit">Register</button>
+    </form>
+  
+    <p class="register-prompt">
+      Already have an account? <a routerLink="/login-user">Login here</a>
+    </p>
+  </div>
+  

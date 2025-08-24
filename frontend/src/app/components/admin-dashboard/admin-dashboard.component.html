@@ -1,0 +1,252 @@
+<div class="admin-dashboard">
+    <!-- Header -->
+    <div class="page-header">
+      <h1>Admin Dashboard</h1>
+      <p>Final review and confirmation of insurance policies</p>
+    </div>
+  
+    <!-- Stats Overview -->
+    <div class="stats-grid">
+      <div class="stat-card total">
+        <div class="stat-icon">
+          <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ stats.total }}</h3>
+          <p>Total Policies</p>
+        </div>
+      </div>
+  
+      <div class="stat-card pending">
+        <div class="stat-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ stats.agent_approved }}</h3>
+          <p>Pending Admin Review</p>
+        </div>
+      </div>
+  
+      <div class="stat-card confirmed">
+        <div class="stat-icon">
+          <i class="fas fa-shield-check"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ stats.confirmed }}</h3>
+          <p>Confirmed Policies</p>
+        </div>
+      </div>
+  
+      <div class="stat-card rejected">
+        <div class="stat-icon">
+          <i class="fas fa-times-circle"></i>
+        </div>
+        <div class="stat-content">
+          <h3>{{ stats.rejected }}</h3>
+          <p>Rejected Policies</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Urgent Attention Section -->
+    <div class="attention-section" *ngIf="getPendingAdminReview().length > 0">
+      <div class="attention-header">
+        <i class="fas fa-exclamation-circle"></i>
+        <h3>Requires Immediate Attention</h3>
+      </div>
+      <p>{{ getPendingAdminReview().length }} policies approved by agents are waiting for your final confirmation.</p>
+      <button class="btn-attention" (click)="statusFilter = 'agent_approved'; onFilterChange()">
+        <i class="fas fa-arrow-right"></i> Review Now
+      </button>
+    </div>
+  
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading policies...</p>
+    </div>
+  
+    <!-- Policies Content -->
+    <div *ngIf="!loading" class="policies-section">
+      <!-- Filters and Search -->
+      <div class="filters-container">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input 
+            type="text" 
+            placeholder="Search policies..." 
+            [(ngModel)]="searchTerm"
+            (input)="onSearchChange()">
+        </div>
+        
+        <div class="filter-buttons">
+          <button 
+            *ngFor="let status of ['all', 'agent_approved', 'confirmed', 'rejected']"
+            [class.active]="statusFilter === status"
+            (click)="statusFilter = status; onFilterChange()"
+            class="filter-btn">
+            {{ status.replace('_', ' ') | titlecase }}
+          </button>
+        </div>
+  
+        <button class="btn-refresh" (click)="refreshPolicies()">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+      </div>
+  
+      <!-- Policies Count -->
+      <div class="policies-count">
+        <p>Showing {{ filteredPolicies.length }} of {{ policies.length }} policies</p>
+        <span class="badge-urgent" *ngIf="getPendingAdminReview().length > 0">
+          <i class="fas fa-exclamation-circle"></i>
+          {{ getPendingAdminReview().length }} need attention
+        </span>
+      </div>
+  
+      <!-- Policies List and Detail View -->
+      <div class="content-layout">
+        <!-- Policies List -->
+        <div class="policies-list">
+          <div *ngIf="filteredPolicies.length === 0" class="no-policies">
+            <i class="fas fa-file-alt"></i>
+            <h3>No policies found</h3>
+            <p>No policies match your current filters.</p>
+          </div>
+  
+          <div *ngFor="let policy of filteredPolicies" 
+               class="policy-item" 
+               [class.selected]="selectedPolicy?.id === policy.id"
+               [class.urgent]="policy.status === 'AGENT_APPROVED'"
+               (click)="selectPolicy(policy)">
+            <div class="policy-item-header">
+              <h4>{{ policy.policy_type }}</h4>
+              <span class="status-badge" [ngClass]="getStatusClass(policy.status)">
+                {{ policy.status | lowercase | titlecase }}
+              </span>
+            </div>
+  
+            <div class="policy-item-details">
+              <p><strong>User ID:</strong> #{{ policy.user_id }}</p>
+              <p><strong>Agent ID:</strong> #{{ policy.agent_id || 'N/A' }}</p>
+              <p><strong>Premium:</strong> ¥{{ policy.premium }}</p>
+              <p><strong>Created:</strong> {{ formatDate(policy.created_at) }}</p>
+            </div>
+  
+            <div class="policy-item-actions">
+              <button *ngIf="canApprove(policy)" 
+                      class="btn-approve"
+                      (click)="$event.stopPropagation(); selectPolicy(policy); approvePolicy()">
+                <i class="fas fa-check"></i> Confirm
+              </button>
+              <button *ngIf="canReject(policy)" 
+                      class="btn-reject"
+                      (click)="$event.stopPropagation(); selectPolicy(policy); rejectPolicy()">
+                <i class="fas fa-times"></i> Reject
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Policy Detail View -->
+        <div class="policy-detail" *ngIf="selectedPolicy">
+          <div class="detail-header">
+            <h3>Policy Final Review</h3>
+            <button class="btn-close" (click)="clearSelection()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+  
+          <div class="detail-content">
+            <div class="detail-section">
+              <h4><i class="fas fa-info-circle"></i> Basic Information</h4>
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <label>Policy ID:</label>
+                  <span>#{{ selectedPolicy.id }}</span>
+                </div>
+                <div class="detail-item">
+                  <label>User ID:</label>
+                  <span>#{{ selectedPolicy.user_id }}</span>
+                </div>
+                <div class="detail-item">
+                  <label>Agent ID:</label>
+                  <span>#{{ selectedPolicy.agent_id || 'N/A' }}</span>
+                </div>
+                <div class="detail-item">
+                  <label>Policy Type:</label>
+                  <span>{{ selectedPolicy.policy_type }}</span>
+                </div>
+                <div class="detail-item">
+                  <label>Premium:</label>
+                  <span class="premium">¥{{ selectedPolicy.premium }}</span>
+                </div>
+                <div class="detail-item">
+                  <label>Status:</label>
+                  <span class="status-badge" [ngClass]="getStatusClass(selectedPolicy.status)">
+                    {{ selectedPolicy.status | lowercase | titlecase }}
+                  </span>
+                </div>
+              </div>
+            </div>
+  
+            <div class="detail-section">
+              <h4><i class="fas fa-history"></i> Timeline</h4>
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <label>Created:</label>
+                  <span>{{ formatDate(selectedPolicy.created_at) }}</span>
+                </div>
+                <div class="detail-item" *ngIf="selectedPolicy.agent_approved_at">
+                  <label>Agent Approved:</label>
+                  <span>{{ formatDate(selectedPolicy.agent_approved_at) }}</span>
+                </div>
+                <div class="detail-item" *ngIf="selectedPolicy.admin_approved_at">
+                  <label>Admin Approved:</label>
+                  <span>{{ formatDate(selectedPolicy.admin_approved_at) }}</span>
+                </div>
+                <div class="detail-item">
+                  <label>Last Updated:</label>
+                  <span>{{ formatDate(selectedPolicy.updated_at) }}</span>
+                </div>
+              </div>
+            </div>
+  
+            <div class="detail-section">
+              <h4><i class="fas fa-sticky-note"></i> Notes & Comments</h4>
+              <div class="notes-container">
+                <textarea 
+                  [(ngModel)]="actionNotes" 
+                  placeholder="Add final review notes or comments..."
+                  rows="4"></textarea>
+                <!-- <button class="btn-save-notes" (click)="updateNotes()">
+                  <i class="fas fa-save"></i> Save Notes
+                </button> -->
+              </div>
+            </div>
+  
+            <div class="detail-actions" *ngIf="canApprove(selectedPolicy) || canReject(selectedPolicy)">
+              <h4><i class="fas fa-tasks"></i> Final Decision</h4>
+              <p class="action-description">
+                This policy has been approved by an agent. Please make the final decision to confirm or reject it.
+              </p>
+              <div class="action-buttons">
+                <button *ngIf="canApprove(selectedPolicy)" class="btn-approve-large" (click)="approvePolicy()">
+                  <i class="fas fa-check-circle"></i> Confirm Policy
+                </button>
+                <button *ngIf="canReject(selectedPolicy)" class="btn-reject-large" (click)="rejectPolicy()">
+                  <i class="fas fa-times-circle"></i> Reject Policy
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Empty Detail State -->
+        <div class="empty-detail" *ngIf="!selectedPolicy">
+          <i class="fas fa-file-alt"></i>
+          <h3>Select a Policy</h3>
+          <p>Click on a policy from the list to review details and make a final decision.</p>
+        </div>
+      </div>
+    </div>
+  </div>

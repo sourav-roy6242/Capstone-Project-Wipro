@@ -1,0 +1,174 @@
+<!-- <section class="insurance-detail">
+    <div class="detail-header">
+      <h2>{{ policyType | titlecase }} Insurance Plans</h2>
+      <p>Explore various plans tailored for {{ policyType | titlecase }} coverage</p>
+    </div>
+  
+    <div class="policy-grid">
+      <div *ngFor="let policy of policyOptions" class="policy-card">
+        <div class="policy-icon">
+          <i [class]="policy.icon"></i>
+        </div>
+  
+        <h3>{{ policy.name }}</h3>
+        <p class="description">{{ policy.description }}</p>
+  
+        <ul class="coverage">
+          <li *ngFor="let item of policy.coverage">✔️ {{ item }}</li>
+        </ul>
+  
+        <div class="features">
+          <span *ngFor="let f of policy.features" class="badge">{{ f }}</span>
+        </div>
+  
+        <p class="premium">💰 Premium: ₹{{ policy.premium }}</p>
+  
+        <button class="btn btn-primary" (click)="requestPolicy(policy)">
+          Request This Policy
+        </button>
+      </div>
+    </div>
+  </section>
+   -->
+
+
+
+   <!-- <section class="insurance-detail">
+    <div class="detail-header">
+      <h2>{{ policyType | titlecase }} Insurance Plans</h2>
+      <p>Explore various plans tailored for {{ policyType | titlecase }} coverage</p>
+    </div>
+  
+    <div class="policy-grid">
+      <div *ngFor="let policy of policyOptions" class="policy-card">
+        <div class="card-header">
+          <div class="policy-icon">
+            <i [class]="policy.icon"></i>
+          </div>
+          <h3>{{ policy.name }}</h3>
+          <p class="description">{{ policy.description }}</p>
+        </div>
+  
+        <div class="card-body">
+          <h4>Coverage Includes:</h4>
+          <ul class="coverage">
+            <li *ngFor="let item of policy.coverage">
+              <i class="fas fa-check-circle"></i> {{ item }}
+            </li>
+          </ul>
+  
+          <div class="features">
+            <span *ngFor="let f of policy.features" class="badge">{{ f }}</span>
+          </div>
+        </div>
+  
+        <div class="card-footer">
+          <div class="premium">
+            <span class="price">₹{{ policy.premium }}</span>
+            <span class="period">/month</span>
+          </div>
+          <button class="btn btn-primary" (click)="requestPolicy(policy)">
+            Request This Policy
+          </button>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+
+
+
+  <section class="insurance-plans">
+    <div class="plans-container">
+      <div class="plans-header">
+        <h2>{{ policyType | titlecase }} Insurance Plans</h2>
+        <p>Explore various plans tailored for {{ policyType | titlecase }} coverage</p>
+        <div class="header-decoration">
+          <div class="decoration-line"></div>
+          <div class="decoration-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="decoration-line"></div>
+        </div>
+      </div>
+  
+      <div class="plans-filter">
+        <div class="filter-options">
+          <button class="filter-btn active">All Plans</button>
+          <button class="filter-btn">Most Popular</button>
+          <button class="filter-btn">Budget Friendly</button>
+        </div>
+        <div class="filter-display">
+          <span>Showing {{ policyOptions.length }} plans</span>
+        </div>
+      </div>
+  
+      <div class="plans-grid">
+        <div *ngFor="let policy of policyOptions; let i = index" class="plan-card" [class.featured]="i === 1">
+          <div class="card-badge" *ngIf="i === 1">Most Popular</div>
+          
+          <div class="card-header">
+            <div class="policy-icon">
+              <i [class]="policy.icon"></i>
+            </div>
+            <h3>{{ policy.name }}</h3>
+            <p class="description">{{ policy.description }}</p>
+          </div>
+  
+          <div class="card-body">
+            <div class="coverage-section">
+              <h4>Coverage Includes</h4>
+              <ul class="coverage-list">
+                <li *ngFor="let item of policy.coverage">
+                  <i class="fas fa-check"></i>
+                  <span>{{ item }}</span>
+                </li>
+              </ul>
+            </div>
+  
+            <div class="features-section">
+              <div class="features-title">Key Features</div>
+              <div class="features-grid">
+                <span *ngFor="let f of policy.features" class="feature-tag">
+                  <i class="fas fa-star"></i>{{ f }}
+                </span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="card-footer">
+            <div class="pricing">
+              <div class="price">₹{{ policy.premium }}</div>
+              <div class="price-label">per month</div>
+            </div>
+            <button class="plan-btn primary" (click)="requestPolicy(policy)">
+              <span>Select Plan</span>
+              <i class="fas fa-arrow-right"></i>
+            </button>
+            <button class="plan-btn secondary">
+              <i class="fas fa-file-alt"></i>
+              <span>View Details</span>
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <div class="plans-footer">
+        <p>Need help choosing the right plan? <a href="#">Talk to our experts</a></p>
+        <div class="support-info">
+          <div class="support-item">
+            <i class="fas fa-headset"></i>
+            <span>24/7 Support</span>
+          </div>
+          <div class="support-item">
+            <i class="fas fa-shield-check"></i>
+            <span>Verified Claims</span>
+          </div>
+          <div class="support-item">
+            <i class="fas fa-file-contract"></i>
+            <span>Easy Documentation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

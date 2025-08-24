@@ -1,0 +1,129 @@
+<div class="policies-container">
+    <div class="policies-header">
+      <h2>Insurance Policies</h2>
+      <p>Manage and view all insurance policy requests</p>
+    </div>
+  
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading policies...</p>
+    </div>
+  
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-state">
+      <i class="fas fa-exclamation-circle"></i>
+      <p>{{ error }}</p>
+      <button class="btn-retry" (click)="refreshPolicies()">
+        <i class="fas fa-redo"></i> Try Again
+      </button>
+    </div>
+  
+    <!-- Policies Content -->
+    <div *ngIf="!loading && !error" class="policies-content">
+      <!-- Filters -->
+      <div class="filters-container">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input 
+            type="text" 
+            placeholder="Search policies..." 
+            [(ngModel)]="searchTerm"
+            (input)="searchTerm = $any($event.target).value">
+        </div>
+        
+        <div class="status-filters">
+          <button 
+            *ngFor="let status of ['all', 'pending', 'agent_approved', 'confirmed', 'rejected']"
+            [class.active]="filterStatus === status"
+            (click)="changeStatusFilter(status)"
+            class="filter-btn">
+            {{ status | titlecase }}
+          </button>
+        </div>
+      </div>
+  
+      <!-- Policies Count -->
+      <div class="policies-count">
+        <p>Showing {{ filteredPolicies.length }} of {{ policies.length }} policies</p>
+      </div>
+  
+      <!-- Policies Grid -->
+      <div *ngIf="filteredPolicies.length > 0; else noPolicies" class="policies-grid">
+        <div *ngFor="let policy of filteredPolicies" class="policy-card">
+          <div class="policy-header">
+            <h3>{{ policy.policy_type }}</h3>
+            <span class="status-badge" [ngClass]="getStatusClass(policy.status)">
+              {{ policy.status | lowercase | titlecase }}
+            </span>
+          </div>
+  
+          <div class="policy-details">
+            <div class="detail-row">
+              <span class="label">Policy ID:</span>
+              <span class="value">#{{ policy.id }}</span>
+            </div>
+            
+            <div class="detail-row">
+              <span class="label">User ID:</span>
+              <span class="value">#{{ policy.user_id }}</span>
+            </div>
+            
+            <div class="detail-row">
+              <span class="label">Premium:</span>
+              <span class="value premium">₹{{ policy.premium }}</span>
+            </div>
+            
+            <div class="detail-row" *ngIf="policy.agent_id">
+              <span class="label">Agent ID:</span>
+              <span class="value">#{{ policy.agent_id }}</span>
+            </div>
+            
+            <div class="detail-row" *ngIf="policy.admin_id">
+              <span class="label">Admin ID:</span>
+              <span class="value">#{{ policy.admin_id }}</span>
+            </div>
+            
+            <div class="detail-row" *ngIf="policy.notes">
+              <span class="label">Notes:</span>
+              <span class="value notes">{{ policy.notes }}</span>
+            </div>
+            
+            <div class="detail-row">
+              <span class="label">Created:</span>
+              <span class="value">{{ formatDate(policy.created_at) }}</span>
+            </div>
+            
+            <div class="detail-row" *ngIf="policy.agent_approved_at">
+              <span class="label">Agent Approved:</span>
+              <span class="value">{{ formatDate(policy.agent_approved_at) }}</span>
+            </div>
+            
+            <div class="detail-row" *ngIf="policy.admin_approved_at">
+              <span class="label">Admin Approved:</span>
+              <span class="value">{{ formatDate(policy.admin_approved_at) }}</span>
+            </div>
+            
+            <div class="detail-row">
+              <span class="label">Last Updated:</span>
+              <span class="value">{{ formatDate(policy.updated_at) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- No Policies Template -->
+      <ng-template #noPolicies>
+        <div class="no-policies">
+          <i class="fas fa-file-alt"></i>
+          <h3>No policies found</h3>
+          <p *ngIf="filterStatus !== 'all' || searchTerm">
+            No policies match your current filters. Try adjusting your search criteria.
+          </p>
+          <p *ngIf="filterStatus === 'all' && !searchTerm">
+            No policies have been created yet.
+          </p>
+        </div>
+      </ng-template>
+    </div>
+  </div>

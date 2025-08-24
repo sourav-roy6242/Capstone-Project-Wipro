@@ -1,0 +1,144 @@
+/* Wrapper centers the card */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f5f7fa; /* Light clean background */
+    font-family: "Poppins", sans-serif;
+  }
+  
+  /* Card */
+  .auth-card {
+    width: 380px;
+    padding: 40px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: #333;
+    animation: fadeIn 0.8s ease;
+  }
+  
+  .auth-card h2 {
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #222;
+  }
+  
+  /* Form groups */
+  .form-group {
+    text-align: left;
+    margin-bottom: 18px;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: block;
+    color: #444;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+  
+  .form-group input:focus {
+    border-color: #2575fc;
+    box-shadow: 0 0 6px rgba(37, 117, 252, 0.2);
+  }
+  
+  /* Buttons */
+  button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #2575fc;
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 117, 252, 0.3);
+    transition: 0.3s;
+  }
+  
+  button:hover {
+    background: #1a5ed1;
+    transform: translateY(-2px);
+  }
+  
+  /* Switch link */
+  .switch-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .switch-link a {
+    color: #2575fc;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  
+  .switch-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Subtle fade-in */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .form-message {
+    margin: 12px 0;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .form-message.success {
+    background-color: #4caf50; /* green for success */
+    color: white;
+  }
+  
+  .form-message.error {
+    background-color: #f44336; /* red for error */
+    color: white;
+  }
+  
+  .register-prompt {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .register-prompt a {
+    color: #2575fc;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .register-prompt a:hover {
+    text-decoration: underline;
+  }
+  

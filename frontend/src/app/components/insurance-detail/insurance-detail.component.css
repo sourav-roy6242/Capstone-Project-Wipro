@@ -1,0 +1,543 @@
+/* .insurance-detail {
+    padding: 2rem;
+    background: #f5f7fa;
+  }
+  
+  .detail-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .detail-header h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .policy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .policy-card {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .policy-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+  
+  .policy-icon {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 1rem;
+  }
+  
+  .policy-card h3 {
+    margin: 0.5rem 0;
+    color: #34495e;
+  }
+  
+  .description {
+    color: #555;
+    margin-bottom: 1rem;
+  }
+  
+  .coverage {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+  }
+  
+  .coverage li {
+    background: #f0f4f8;
+    margin: 0.3rem 0;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+  
+  .features {
+    margin: 1rem 0;
+  }
+  
+  .badge {
+    display: inline-block;
+    background: #e9f3ff;
+    color: #007bff;
+    padding: 0.3rem 0.7rem;
+    margin: 0.2rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+  }
+  
+  .premium {
+    font-weight: bold;
+    color: #28a745;
+    margin: 1rem 0;
+  }
+  
+  button {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+   */
+
+
+
+
+
+   /* Modern Insurance Plans Styling */
+.insurance-plans {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    min-height: 100vh;
+  }
+  
+  .plans-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .plans-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+  
+  .plans-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #1a2a6c;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+  }
+  
+  .plans-header p {
+    font-size: 1.2rem;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+  
+  .header-decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .decoration-line {
+    height: 2px;
+    width: 80px;
+    background: linear-gradient(90deg, transparent, #1a2a6c, transparent);
+  }
+  
+  .decoration-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #1a2a6c, #3a8bbb);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+  }
+  
+  .plans-filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    padding: 1.2rem 1.8rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+  
+  .filter-options {
+    display: flex;
+    gap: 0.8rem;
+  }
+  
+  .filter-btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 50px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-btn.active, .filter-btn:hover {
+    background: linear-gradient(135deg, #1a2a6c, #3a8bbb);
+    color: white;
+  }
+  
+  .filter-display span {
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+  
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .plan-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .plan-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  }
+  
+  .plan-card.featured {
+    border: 2px solid #3a8bbb;
+    transform: scale(1.02);
+  }
+  
+  .card-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, #3a8bbb, #1a2a6c);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 10;
+  }
+  
+  .card-header {
+    padding: 2.5rem 2rem 1.5rem;
+    text-align: center;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    position: relative;
+  }
+  
+  .card-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
+  }
+  
+  .policy-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #1a2a6c, #2b5676);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    box-shadow: 0 8px 20px rgba(26, 42, 108, 0.25);
+  }
+  
+  .plan-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: #1a2a6c;
+    margin-bottom: 0.8rem;
+  }
+  
+  .description {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+  
+  .card-body {
+    padding: 2rem;
+    flex-grow: 1;
+  }
+  
+  .coverage-section {
+    margin-bottom: 2rem;
+  }
+  
+  .coverage-section h4 {
+    font-size: 1.1rem;
+    color: #1a2a6c;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .coverage-section h4::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, #1a2a6c, #3a8bbb);
+    border-radius: 3px;
+  }
+  
+  .coverage-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .coverage-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.9rem;
+    color: #475569;
+  }
+  
+  .coverage-list li i {
+    color: #10b981;
+    margin-right: 0.8rem;
+    font-size: 1.1rem;
+    background: #d1fae5;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .features-section {
+    margin-top: 2rem;
+  }
+  
+  .features-title {
+    font-size: 1.1rem;
+    color: #1a2a6c;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  
+  .features-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  
+  .feature-tag {
+    background: #f0f9ff;
+    color: #0369a1;
+    padding: 0.5rem 0.9rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  
+  .feature-tag i {
+    font-size: 0.7rem;
+  }
+  
+  .card-footer {
+    padding: 2rem;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+  }
+  
+  .pricing {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .price {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #1a2a6c;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  
+  .price-label {
+    font-size: 0.9rem;
+    color: #64748b;
+  }
+  
+  .plan-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    gap: 0.5rem;
+  }
+  
+  .plan-btn.primary {
+    background: linear-gradient(135deg, #1a2a6c, #3a8bbb);
+    color: white;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 4px 12px rgba(26, 42, 108, 0.25);
+  }
+  
+  .plan-btn.primary:hover {
+    background: linear-gradient(135deg, #3a8bbb, #1a2a6c);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(26, 42, 108, 0.35);
+  }
+  
+  .plan-btn.secondary {
+    background: transparent;
+    color: #64748b;
+    border: 1px solid #cbd5e1;
+  }
+  
+  .plan-btn.secondary:hover {
+    background: #f1f5f9;
+    color: #1a2a6c;
+  }
+  
+  .plans-footer {
+    text-align: center;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+  
+  .plans-footer p {
+    font-size: 1.1rem;
+    color: #475569;
+    margin-bottom: 1.5rem;
+  }
+  
+  .plans-footer a {
+    color: #3a8bbb;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .plans-footer a:hover {
+    color: #1a2a6c;
+    text-decoration: underline;
+  }
+  
+  .support-info {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .support-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+  
+  .support-item i {
+    color: #3a8bbb;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .plans-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .insurance-plans {
+      padding: 2.5rem 1rem;
+    }
+    
+    .plans-header h2 {
+      font-size: 2.2rem;
+    }
+    
+    .plans-filter {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    
+    .plans-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .plan-card.featured {
+      transform: none;
+    }
+    
+    .support-info {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .plans-header h2 {
+      font-size: 1.9rem;
+    }
+    
+    .header-decoration {
+      gap: 1rem;
+    }
+    
+    .decoration-line {
+      width: 40px;
+    }
+    
+    .filter-options {
+      flex-wrap: wrap;
+    }
+    
+    .card-header,
+    .card-body,
+    .card-footer {
+      padding: 1.5rem;
+    }
+    
+    .policy-icon {
+      width: 70px;
+      height: 70px;
+      font-size: 1.8rem;
+    }
+  }

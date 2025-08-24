@@ -1,0 +1,873 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsuranceCo - Protect Your Future</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                InsuranceCo
+            </div>
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/policies">Policies</a></li>
+                    <li class="dropdown">
+                        <button class="dropbtn">Login <i class="fas fa-chevron-down"></i></button>
+                        <div class="dropdown-content">
+                            <a href="/login-user"><i class="fas fa-user"></i> User Login</a>
+                            <a href="/login-agent"><i class="fas fa-agent"></i> Agent Login</a>
+                            <a href="/login-admin"><i class="fas fa-cog"></i> Admin Login</a>
+                        </div>
+                    </li>
+                </ul>
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+<section class="hero">
+    <div class="hero-slide" *ngFor="let slide of heroSlides; let i = index" [class.active]="i === currentSlide" [style.backgroundImage]="'url(' + slide.image + ')'">
+      <div class="hero-content">
+        <h1>{{ slide.quote }}</h1>
+        <p>{{ slide.subText }}</p>
+      </div>
+    </div>
+  
+    <button class="hero-prev" (click)="prevSlide()">&#10094;</button>
+    <button class="hero-next" (click)="nextSlide()">&#10095;</button>
+  
+ 
+    <div class="hero-dots">
+      <span *ngFor="let slide of heroSlides; let i = index" [class.active]="i === currentSlide" (click)="goToSlide(i)"></span>
+    </div>
+  </section>
+  
+
+<section class="features">
+    <div class="section-title animate">
+        <h2>Why Choose InsuranceCo?</h2>
+        <p>We provide peace of mind through comprehensive coverage and exceptional service</p>
+    </div>
+    
+    <div class="features-grid">
+        <div class="feature-card animate delay-1" >
+            <div class="feature-icon">
+                <i class="fas fa-hand-holding-usd"></i>
+            </div>
+            <h3>Affordable Premiums</h3>
+            <p>Get comprehensive coverage at competitive rates with flexible payment options.</p>
+        </div>
+        
+        <div class="feature-card animate delay-2" >
+            <div class="feature-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h3>Quick Claims Processing</h3>
+            <p>Our efficient claims process ensures you get support when you need it most.</p>
+        </div>
+        
+        <div class="feature-card animate delay-3" >
+            <div class="feature-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <h3>24/7 Support</h3>
+            <p>Our dedicated team is always available to assist you with any questions or concerns.</p>
+        </div>
+    </div>
+</section>
+
+
+<section class="stats" >
+    <div class="stats-grid">
+        <div class="stat-item">
+            <div class="stat-number">95%</div>
+            <div class="stat-text">Customer Satisfaction</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">50K+</div>
+            <div class="stat-text">Policies Issued</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">15+</div>
+            <div class="stat-text">Years of Experience</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-text">Support Availability</div>
+        </div>
+    </div>
+</section>
+
+<section class="insurance">
+    <div class="section-title animate">
+      <h2>Our Insurance Policies</h2>
+      <p>Choose from a wide range of insurance policies tailored to your needs</p>
+    </div>
+  
+    <div class="insurance-grid">
+    
+      <div class="insurance-card animate delay-1">
+        <div class="insurance-icon">
+          <i class="fas fa-car"></i>
+        </div>
+        <h3>Auto Insurance</h3>
+        <p>Comprehensive coverage for your vehicle at competitive premiums.</p>
+        <button class="btn btn-outline" [routerLink]="['/insurance', 'auto']">
+          <i class="fas fa-info-circle"></i> Learn More
+        </button>
+      </div>
+  
+    
+      <div class="insurance-card animate delay-2">
+        <div class="insurance-icon">
+          <i class="fas fa-home"></i>
+        </div>
+        <h3>Home Insurance</h3>
+        <p>Protect your home and valuables with reliable home insurance plans.</p>
+        <button class="btn btn-outline" [routerLink]="['/insurance', 'home']">
+          <i class="fas fa-info-circle"></i> Learn More
+        </button>
+      </div>
+  
+     
+      <div class="insurance-card animate delay-3">
+        <div class="insurance-icon">
+          <i class="fas fa-heart"></i>
+        </div>
+        <h3>Life Insurance</h3>
+        <p>Secure your family's future with our flexible life insurance policies.</p>
+        <button class="btn btn-outline" [routerLink]="['/insurance', 'life']">
+          <i class="fas fa-info-circle"></i> Learn More
+        </button>
+      </div>
+  
+     
+      <div class="insurance-card animate delay-4">
+        <div class="insurance-icon">
+          <i class="fas fa-notes-medical"></i>
+        </div>
+        <h3>Health Insurance</h3>
+        <p>Comprehensive health coverage for you and your loved ones.</p>
+        <button class="btn btn-outline" [routerLink]="['/insurance', 'health']">
+          <i class="fas fa-info-circle"></i> Learn More
+        </button>
+      </div>
+    </div>
+  </section>
+  
+
+
+<section class="testimonials" style="background: url('assets/img6.jpg') no-repeat center center/cover; background-size: cover;">
+    <div class="section-title animate" style="color: white;">
+      <h2>What Our Clients Say</h2>
+      <p>Hear from our satisfied customers about their experience with InsuranceCo</p>
+    </div>
+  
+    <div class="testimonial-container animate">
+      <div class="testimonial-card" *ngFor="let testimonial of testimonials; let i = index" [class.active]="i === currentTestimonial">
+        <p class="testimonial-text">{{testimonial.text}}</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <img [src]="testimonial.avatar" [alt]="testimonial.name">
+          </div>
+          <div class="author-details">
+            <h4>{{testimonial.name}}</h4>
+            <p>{{testimonial.role}}</p>
+          </div>
+        </div>
+      </div>
+  
+      <button class="testimonial-prev" (click)="prevTestimonial()">&#10094;</button>
+      <button class="testimonial-next" (click)="nextTestimonial()">&#10095;</button>
+    </div>
+  
+    <div class="testimonial-dots">
+      <span *ngFor="let testimonial of testimonials; let i = index" 
+            [class.active]="i === currentTestimonial" 
+            (click)="goToTestimonial(i)">
+      </span>
+    </div>
+  </section>
+  
+
+
+ 
+    <section class="cta-section">
+        <div class="cta-content animate">
+            <h2>Ready to Protect Your Future?</h2>
+            <p>Join thousands of satisfied customers who trust InsuranceCo with their insurance needs</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">
+                    <link href="/register-user"/>
+                    <i class="fas fa-user"></i> Register as User
+                </button>
+                <button class="btn btn-outline">
+                   <link href="/register-agent"/>
+                    <i class="fas fa-briefcase"></i> Register as Agent
+                </button>
+            </div>
+        </div>
+    </section>
+
+ 
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>InsuranceCo</h3>
+                <p>Providing reliable insurance solutions for over 15 years. Protecting what matters most to you and your family.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/policies">Insurance Policies</a></li>
+                    <li><a href="/claims">Claims Process</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Auto Insurance</a></li>
+                    <li><a href="#">Home Insurance</a></li>
+                    <li><a href="#">Life Insurance</a></li>
+                    <li><a href="#">Health Insurance</a></li>
+                    <li><a href="#">Business Insurance</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Insurance Street, New York, NY</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@insuranceco.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM-5PM</p>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 InsuranceCo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transition = 'opacity 0.5s ease-in-out';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>  -->
+
+
+
+
+
+
+
+
+
+<!-- <div class="homepage">
+    <header>
+      <div class="header-container">
+        <div class="logo">
+          <i class="fas fa-shield-alt"></i>
+          <span>InsuranceCo</span>
+        </div>
+        <div class="nav-container">
+          <ul class="nav-links">
+            <li><a routerLink="/">Home</a></li>
+            <li><a routerLink="/about">About</a></li>
+            <li><a routerLink="/policies">Policies</a></li>
+            <li class="dropdown">
+              <button class="dropbtn">Login <i class="fas fa-chevron-down"></i></button>
+              <div class="dropdown-content">
+                <a routerLink="/login-user"><i class="fas fa-user"></i> User Login</a>
+                <a routerLink="/login-agent"><i class="fas fa-id-badge"></i> Agent Login</a>
+                <a routerLink="/login-admin"><i class="fas fa-cog"></i> Admin Login</a>
+              </div>
+            </li>
+          </ul>
+          <button class="menu-toggle" (click)="toggleMenu()">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+  
+    <section class="hero">
+      <div class="hero-slide" *ngFor="let slide of heroSlides; let i = index" 
+           [class.active]="i === currentSlide" 
+           [style.background-image]="'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(' + slide.image + ')'">
+        <div class="hero-content">
+          <h1>{{ slide.quote }}</h1>
+          <p>{{ slide.subText }}</p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary" routerLink="/register-user">Get Started</button>
+            <button class="btn btn-outline" routerLink="/policies">Explore Policies</button>
+          </div>
+        </div>
+      </div>
+  
+      <button class="hero-nav hero-prev" (click)="prevSlide()">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="hero-nav hero-next" (click)="nextSlide()">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+  
+      <div class="hero-dots">
+        <span *ngFor="let slide of heroSlides; let i = index" 
+              [class.active]="i === currentSlide" 
+              (click)="goToSlide(i)"></span>
+      </div>
+    </section>
+  
+    <section class="features">
+      <div class="section-title animate" [class.visible]="isVisible['features']">
+        <h2>Why Choose InsuranceCo?</h2>
+        <p>We provide peace of mind through comprehensive coverage and exceptional service</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card animate delay-1" [class.visible]="isVisible['features']">
+          <div class="feature-icon">
+            <i class="fas fa-hand-holding-usd"></i>
+          </div>
+          <h3>Affordable Premiums</h3>
+          <p>Get comprehensive coverage at competitive rates with flexible payment options.</p>
+        </div>
+        
+        <div class="feature-card animate delay-2" [class.visible]="isVisible['features']">
+          <div class="feature-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>Quick Claims Processing</h3>
+          <p>Our efficient claims process ensures you get support when you need it most.</p>
+        </div>
+        
+        <div class="feature-card animate delay-3" [class.visible]="isVisible['features']">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3>24/7 Support</h3>
+          <p>Our dedicated team is always available to assist you with any questions or concerns.</p>
+        </div>
+      </div>
+    </section>
+  
+    <section class="stats" [class.visible]="isVisible['stats']">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">{{ stats.customerSatisfaction }}%</div>
+          <div class="stat-text">Customer Satisfaction</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">{{ stats.policiesIssued }}+</div>
+          <div class="stat-text">Policies Issued</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">{{ stats.yearsExperience }}+</div>
+          <div class="stat-text">Years of Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-text">Support Availability</div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="insurance">
+      <div class="section-title animate" [class.visible]="isVisible['insurance']">
+        <h2>Our Insurance Policies</h2>
+        <p>Choose from a wide range of insurance policies tailored to your needs</p>
+      </div>
+    
+      <div class="insurance-grid">
+        <div class="insurance-card animate delay-1" [class.visible]="isVisible['insurance']">
+          <div class="insurance-icon">
+            <i class="fas fa-car"></i>
+          </div>
+          <h3>Auto Insurance</h3>
+          <p>Comprehensive coverage for your vehicle at competitive premiums.</p>
+          <button class="btn btn-outline" routerLink="/insurance/auto">
+            <i class="fas fa-info-circle"></i> Learn More
+          </button>
+        </div>
+    
+        <div class="insurance-card animate delay-2" [class.visible]="isVisible['insurance']">
+          <div class="insurance-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <h3>Home Insurance</h3>
+          <p>Protect your home and valuables with reliable home insurance plans.</p>
+          <button class="btn btn-outline" routerLink="/insurance/home">
+            <i class="fas fa-info-circle"></i> Learn More
+          </button>
+        </div>
+    
+        <div class="insurance-card animate delay-3" [class.visible]="isVisible['insurance']">
+          <div class="insurance-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Life Insurance</h3>
+          <p>Secure your family's future with our flexible life insurance policies.</p>
+          <button class="btn btn-outline" routerLink="/insurance/life">
+            <i class="fas fa-info-circle"></i> Learn More
+          </button>
+        </div>
+    
+        <div class="insurance-card animate delay-4" [class.visible]="isVisible['insurance']">
+          <div class="insurance-icon">
+            <i class="fas fa-notes-medical"></i>
+          </div>
+          <h3>Health Insurance</h3>
+          <p>Comprehensive health coverage for you and your loved ones.</p>
+          <button class="btn btn-outline" routerLink="/insurance/health">
+            <i class="fas fa-info-circle"></i> Learn More
+          </button>
+        </div>
+      </div>
+    </section>
+  
+    <section class="testimonials">
+      <div class="testimonials-overlay"></div>
+      <div class="section-title animate" [class.visible]="isVisible['testimonials']">
+        <h2>What Our Clients Say</h2>
+        <p>Hear from our satisfied customers about their experience with InsuranceCo</p>
+      </div>
+    
+      <div class="testimonial-container animate" [class.visible]="isVisible['testimonials']">
+        <div class="testimonial-card" *ngFor="let testimonial of testimonials; let i = index" 
+             [class.active]="i === currentTestimonial">
+          <div class="testimonial-quote">
+            <i class="fas fa-quote-left"></i>
+          </div>
+          <p class="testimonial-text">{{testimonial.text}}</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img [src]="testimonial.avatar" [alt]="testimonial.name" (error)="testimonial.avatar = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM4ODgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAgMjF2LTJhNCA0IDAgMCAwLTQtNEg4YTQgNCAwIDAgMC00IDR2MiI+PC9wYXRoPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCI+PC9jaXJjbGU+PC9zdmc+'">
+            </div>
+            <div class="author-details">
+              <h4>{{testimonial.name}}</h4>
+              <p>{{testimonial.role}}</p>
+            </div>
+          </div>
+        </div>
+    
+        <button class="testimonial-nav testimonial-prev" (click)="prevTestimonial()">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="testimonial-nav testimonial-next" (click)="nextTestimonial()">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    
+      <div class="testimonial-dots">
+        <span *ngFor="let testimonial of testimonials; let i = index" 
+              [class.active]="i === currentTestimonial" 
+              (click)="goToTestimonial(i)"></span>
+      </div>
+    </section>
+  
+    <section class="cta-section">
+      <div class="cta-content animate" [class.visible]="isVisible['cta']">
+        <h2>Ready to Protect Your Future?</h2>
+        <p>Join thousands of satisfied customers who trust InsuranceCo with their insurance needs</p>
+        <div class="cta-buttons">
+          <button class="btn btn-primary" routerLink="/register-user">
+            <i class="fas fa-user"></i> Register as User
+          </button>
+          <button class="btn btn-outline" routerLink="/register-agent">
+            <i class="fas fa-briefcase"></i> Register as Agent
+          </button>
+        </div>
+      </div>
+    </section>
+  
+    <footer>
+      <div class="footer-container">
+        <div class="footer-col">
+          <h3>InsuranceCo</h3>
+          <p>Providing reliable insurance solutions for over 15 years. Protecting what matters most to you and your family.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a routerLink="/">Home</a></li>
+            <li><a routerLink="/about">About Us</a></li>
+            <li><a routerLink="/policies">Insurance Policies</a></li>
+            <li><a routerLink="/claims">Claims Process</a></li>
+            <li><a routerLink="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Services</h3>
+          <ul class="footer-links">
+            <li><a routerLink="/insurance/auto">Auto Insurance</a></li>
+            <li><a routerLink="/insurance/home">Home Insurance</a></li>
+            <li><a routerLink="/insurance/life">Life Insurance</a></li>
+            <li><a routerLink="/insurance/health">Health Insurance</a></li>
+            <li><a routerLink="/insurance/business">Business Insurance</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Contact Us</h3>
+          <div class="contact-info">
+            <p><i class="fas fa-map-marker-alt"></i> 123 Insurance Street, New York, NY</p>
+            <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+            <p><i class="fas fa-envelope"></i> info@insuranceco.com</p>
+            <p><i class="fas fa-clock"></i> Mon-Fri: 9AM-5PM</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2023 InsuranceCo. All rights reserved.</p>
+      </div>
+    </footer>
+  </div> -->
+
+
+
+
+  
+
+
+
+
+
+  <div class="homepage">
+    <!-- Header remains the same -->
+    <header>
+      <div class="header-container">
+        <div class="logo">
+          <i class="fas fa-shield-alt"></i>
+          <span>InsuranceCo</span>
+        </div>
+        <div class="nav-container">
+          <ul class="nav-links">
+            <li><a routerLink="/">Home</a></li>
+            <li><a routerLink="/about">About</a></li>
+            <li><a routerLink="/policies">Policies</a></li>
+            <li class="dropdown">
+              <button class="dropbtn">Login <i class="fas fa-chevron-down"></i></button>
+              <div class="dropdown-content">
+                <a routerLink="/login-user"><i class="fas fa-user"></i> User Login</a>
+                <a routerLink="/login-agent"><i class="fas fa-id-badge"></i> Agent Login</a>
+                <a routerLink="/login-admin"><i class="fas fa-cog"></i> Admin Login</a>
+              </div>
+            </li>
+          </ul>
+          <button class="menu-toggle" (click)="toggleMenu()">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+  
+    <!-- Hero section remains the same -->
+    <section class="hero">
+      <div class="hero-slide" *ngFor="let slide of heroSlides; let i = index" 
+           [class.active]="i === currentSlide" 
+           [style.background-image]="'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(' + slide.image + ')'">
+        <div class="hero-content">
+          <h1>{{ slide.quote }}</h1>
+          <p>{{ slide.subText }}</p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary" routerLink="/register-user">Get Started</button>
+            <button class="btn btn-outline" routerLink="/policies">Explore Policies</button>
+          </div>
+        </div>
+      </div>
+  
+      <button class="hero-nav hero-prev" (click)="prevSlide()">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="hero-nav hero-next" (click)="nextSlide()">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+  
+      <div class="hero-dots">
+        <span *ngFor="let slide of heroSlides; let i = index" 
+              [class.active]="i === currentSlide" 
+              (click)="goToSlide(i)"></span>
+      </div>
+    </section>
+  
+    <!-- Features section remains the same -->
+    <section class="features">
+      <div class="section-title animate" [class.visible]="isVisible['features']">
+        <h2>Why Choose InsuranceCo?</h2>
+        <p>We provide peace of mind through comprehensive coverage and exceptional service</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card animate delay-1" [class.visible]="isVisible['features']">
+          <div class="feature-icon">
+            <i class="fas fa-hand-holding-usd"></i>
+          </div>
+          <h3>Affordable Premiums</h3>
+          <p>Get comprehensive coverage at competitive rates with flexible payment options.</p>
+        </div>
+        
+        <div class="feature-card animate delay-2" [class.visible]="isVisible['features']">
+          <div class="feature-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>Quick Claims Processing</h3>
+          <p>Our efficient claims process ensures you get support when you need it most.</p>
+        </div>
+        
+        <div class="feature-card animate delay-3" [class.visible]="isVisible['features']">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3>24/7 Support</h3>
+          <p>Our dedicated team is always available to assist you with any questions or concerns.</p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Stats section - added IDs for animation -->
+    <section class="stats" id="stats-section" [class.visible]="isVisible['stats']">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number" id="satisfaction-stat">{{ animatedStats.customerSatisfaction }}%</div>
+          <div class="stat-text">Customer Satisfaction</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="policies-stat">{{ animatedStats.policiesIssued }}+</div>
+          <div class="stat-text">Policies Issued</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="years-stat">{{ animatedStats.yearsExperience }}+</div>
+          <div class="stat-text">Years of Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-text">Support Availability</div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Insurance section remains the same -->
+    <section class="insurance">
+      <div class="section-title animate" [class.visible]="isVisible['insurance']">
+        <h2>Our Insurance Policies</h2>
+        <p>Choose from a wide range of insurance policies tailored to your needs</p>
+      </div>
+    
+      <div class="insurance-grid">
+        <div class="insurance-card animate delay-1" [class.visible]="isVisible['insurance']">
+          <div class="insurance-icon">
+            <i class="fas fa-car"></i>
+          </div>
+          <h3>Auto Insurance</h3>
+          <p>Comprehensive coverage for your vehicle at competitive premiums.</p>
+          <button class="btn btn-outline insurance-btn" routerLink="/insurance/auto">
+            <i class="fas fa-info-circle"></i> Learn More
+          </button>
+        </div>
+    
+        <div class="insurance-card animate delay-2" [class.visible]="isVisible['insurance']">
+          <div class="insurance-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <h3>Home Insurance</h3>
+          <p>Protect your home and valuables with reliable home insurance plans.</p>
+          <button class="btn btn-outline insurance-btn" routerLink="/insurance/home">
+            <i class="fas fa-info-circle"></i> Learn More
+          </button>
+        </div>
+    
+        <div class="insurance-card animate delay-3" [class.visible]="isVisible['insurance']">
+          <div class="insurance-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Life Insurance</h3>
+          <p>Secure your family's future with our flexible life insurance policies.</p>
+          <button class="btn btn-outline insurance-btn" routerLink="/insurance/life">
+            <i class="fas fa-info-circle"></i> Learn More
+          </button>
+        </div>
+    
+        <div class="insurance-card animate delay-4" [class.visible]="isVisible['insurance']">
+          <div class="insurance-icon">
+            <i class="fas fa-notes-medical"></i>
+          </div>
+          <h3>Health Insurance</h3>
+          <p>Comprehensive health coverage for you and your loved ones.</p>
+          <button class="btn btn-outline insurance-btn" routerLink="/insurance/health">
+            <i class="fas fa-info-circle"></i> Learn More
+          </button>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Testimonials section remains the same -->
+    <section class="testimonials">
+      <div class="testimonials-overlay"></div>
+      <div class="section-title animate" [class.visible]="isVisible['testimonials']">
+        <h2>What Our Clients Say</h2>
+        <p>Hear from our satisfied customers about their experience with InsuranceCo</p>
+      </div>
+    
+      <div class="testimonial-container animate" [class.visible]="isVisible['testimonials']">
+        <div class="testimonial-card" *ngFor="let testimonial of testimonials; let i = index" 
+             [class.active]="i === currentTestimonial">
+          <div class="testimonial-quote">
+            <i class="fas fa-quote-left"></i>
+          </div>
+          <p class="testimonial-text">{{testimonial.text}}</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img [src]="testimonial.avatar" [alt]="testimonial.name" (error)="testimonial.avatar = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM4ODgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAgMjF2LTJhNCA0IDAgMCAwLTQtNEg4YTQgNCAwIDAgMC00IDR2MiI+PC9wYXRoPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCI+PC9jaXJjbGU+PC9zdmc+'">
+            </div>
+            <div class="author-details">
+              <h4>{{testimonial.name}}</h4>
+              <p>{{testimonial.role}}</p>
+            </div>
+          </div>
+        </div>
+    
+        <button class="testimonial-nav testimonial-prev" (click)="prevTestimonial()">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="testimonial-nav testimonial-next" (click)="nextTestimonial()">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    
+      <div class="testimonial-dots">
+        <span *ngFor="let testimonial of testimonials; let i = index" 
+              [class.active]="i === currentTestimonial" 
+              (click)="goToTestimonial(i)"></span>
+      </div>
+    </section>
+  
+    <!-- CTA section - fixed color issues -->
+ <!-- CTA Section -->
+<section class="cta-section">
+  <div class="cta-header">
+    <h2>
+      Ready to Protect Your Future?
+    </h2>
+    <p>Join thousands of satisfied customers who trust InsuranceCo with their insurance needs</p>
+
+  </div>
+  <div class="cta-buttons">
+    <button class="cta-button" routerLink="/register-user">
+      <i class="fas fa-user"></i> Register as User
+    </button>
+    <button class="cta-button" routerLink="/register-agent">
+      <i class="fas fa-briefcase"></i> Register as Agent
+
+    </button>
+  </div>
+
+</section>
+  
+    <!-- Footer remains the same -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-col">
+          <h3>InsuranceCo</h3>
+          <p>Providing reliable insurance solutions for over 15 years. Protecting what matters most to you and your family.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a routerLink="/">Home</a></li>
+            <li><a routerLink="/about">About Us</a></li>
+            <li><a routerLink="/policies">Insurance Policies</a></li>
+            <li><a routerLink="/claims">Claims Process</a></li>
+            <li><a routerLink="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Services</h3>
+          <ul class="footer-links">
+            <li><a routerLink="/insurance/auto">Auto Insurance</a></li>
+            <li><a routerLink="/insurance/home">Home Insurance</a></li>
+            <li><a routerLink="/insurance/life">Life Insurance</a></li>
+            <li><a routerLink="/insurance/health">Health Insurance</a></li>
+            <li><a routerLink="/insurance/business">Business Insurance</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Contact Us</h3>
+          <div class="contact-info">
+            <p><i class="fas fa-map-marker-alt"></i> 123 Insurance Street, New York, NY</p>
+            <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+            <p><i class="fas fa-envelope"></i> info@insuranceco.com</p>
+            <p><i class="fas fa-clock"></i> Mon-Fri: 9AM-5PM</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2023 InsuranceCo. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
