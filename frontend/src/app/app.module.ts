@@ -16,6 +16,11 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { HomeComponent } from './components/home/home.component';
 import { PoliciesComponent } from './components/policies/policies.component';
 import { InsuranceDetailComponent } from './components/insurance-detail/insurance-detail.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { AuthService } from './services/auth.service';
+import { FooterComponent } from './components/footer/footer.component';
+import { ProfileComponent } from './components/profile/profile.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +35,10 @@ import { InsuranceDetailComponent } from './components/insurance-detail/insuranc
     AdminDashboardComponent,
     HomeComponent,
     PoliciesComponent,
-    InsuranceDetailComponent
+    InsuranceDetailComponent,
+    NavbarComponent,
+    FooterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +47,7 @@ import { InsuranceDetailComponent } from './components/insurance-detail/insuranc
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule {}

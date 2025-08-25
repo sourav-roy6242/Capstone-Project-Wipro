@@ -40,6 +40,50 @@
 
 
 
+// import { NgModule } from '@angular/core';
+// import { RouterModule, Routes } from '@angular/router';
+
+// import { LoginUserComponent } from './components/login-user/login-user.component';
+// import { LoginAgentComponent } from './components/login-agent/login-agent.component';
+// import { LoginAdminComponent } from './components/login-admin/login-admin.component';
+// import { RegisterUserComponent } from './components/register-user/register-user.component';
+// import { RegisterAgentComponent } from './components/register-agent/register-agent.component';
+// import { AgentPageComponent } from './components/agent-page/agent-page.component';
+// import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+// import { HomeComponent } from './components/home/home.component';
+// import { PoliciesComponent } from './components/policies/policies.component';
+// import { InsuranceDetailComponent } from './components/insurance-detail/insurance-detail.component';
+
+
+// const routes: Routes = [
+//   // Default route → Home page
+//   { path: '', component: HomeComponent, pathMatch: 'full' },
+
+//   { path: 'login-user', component: LoginUserComponent },
+//   { path: 'login-agent', component: LoginAgentComponent },
+//   { path: 'login-admin', component: LoginAdminComponent },
+//   { path: 'register-user', component: RegisterUserComponent },
+//   { path: 'register-agent', component: RegisterAgentComponent },
+//   { path: 'agent-page', component: AgentPageComponent },
+//   { path: 'admin-dashboard', component: AdminDashboardComponent },
+//   { path: 'policies', component: PoliciesComponent },
+
+//   // Dynamic detail page → e.g. /insurance/health
+//   { path: 'insurance/:type', component: InsuranceDetailComponent },
+
+//   // Wildcard route → redirect invalid paths to Home
+//   { path: '**', redirectTo: '', pathMatch: 'full' }
+// ];
+
+// @NgModule({
+//   imports: [RouterModule.forRoot(routes)],
+//   exports: [RouterModule]
+// })
+// export class AppRoutingModule {}
+
+
+
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -53,6 +97,7 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { HomeComponent } from './components/home/home.component';
 import { PoliciesComponent } from './components/policies/policies.component';
 import { InsuranceDetailComponent } from './components/insurance-detail/insurance-detail.component';
+import { ProfileComponent } from './components/profile/profile.component'; // Import ProfileComponent
 
 const routes: Routes = [
   // Default route → Home page
@@ -66,6 +111,12 @@ const routes: Routes = [
   { path: 'agent-page', component: AgentPageComponent },
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'policies', component: PoliciesComponent },
+  
+  // Profile routes - Add these lines
+  { path: 'profile', component: ProfileComponent },
+  { path: 'profile-user', component: ProfileComponent },
+  { path: 'profile-agent', component: ProfileComponent },
+  { path: 'profile-admin', component: ProfileComponent },
 
   // Dynamic detail page → e.g. /insurance/health
   { path: 'insurance/:type', component: InsuranceDetailComponent },
@@ -78,4 +129,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

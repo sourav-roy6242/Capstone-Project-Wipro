@@ -1,0 +1,237 @@
+/* Navbar Styles */
+.site-header {
+    background: #fff;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0.5rem 0;
+  }
+  
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c5282;
+    text-decoration: none;
+    gap: 0.5rem;
+  }
+  
+  .logo:hover {
+    color: #3182ce;
+  }
+  
+  .logo i {
+    color: #3182ce;
+  }
+  
+  /* Navigation Links */
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #4a5568;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .nav-links a:hover {
+    color: #3182ce;
+  }
+  
+  .nav-links a:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #3182ce;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-links a:hover:after {
+    width: 100%;
+  }
+  
+  /* Dropdown Styles */
+  .dropdown {
+    position: relative;
+  }
+  
+  .btn-link {
+    background: none;
+    border: none;
+    color: #4a5568;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  .btn-link:hover {
+    color: #3182ce;
+  }
+  
+  /* Avatar */
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #3182ce;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .avatar:hover {
+    background: #2c5282;
+    transform: scale(1.05);
+  }
+  
+  /* Dropdown Content */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: #fff;
+    min-width: 200px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    padding: 0.5rem 0;
+    z-index: 1000;
+    overflow: hidden;
+  }
+  
+  .dropdown.open .dropdown-content {
+    display: block;
+    animation: fadeIn 0.2s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .dropdown-content a {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: #2d3748;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    gap: 0.5rem;
+  }
+  
+  .dropdown-content a:hover {
+    background: #f7fafc;
+    color: #3182ce;
+  }
+  
+  .dropdown-content a i {
+    width: 16px;
+    text-align: center;
+  }
+  
+  /* Menu Toggle (Mobile) */
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #4a5568;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .header-container {
+      padding: 0 1rem;
+    }
+    
+    .menu-toggle {
+      display: block;
+    }
+    
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: white;
+      flex-direction: column;
+      padding: 1rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      gap: 0;
+    }
+    
+    .nav-links.active {
+      display: flex;
+    }
+    
+    .nav-links li {
+      width: 100%;
+    }
+    
+    .nav-links a {
+      padding: 0.75rem 0;
+      width: 100%;
+    }
+    
+    .dropdown-content {
+      position: static;
+      box-shadow: none;
+      margin-top: 0.5rem;
+      margin-left: 1rem;
+      width: calc(100% - 2rem);
+      animation: none;
+    }
+    
+    .avatar {
+      width: 36px;
+      height: 36px;
+      font-size: 14px;
+    }
+  }
+  
+  /* Ensure the component styles are applied */
+  :host {
+    display: block;
+  }

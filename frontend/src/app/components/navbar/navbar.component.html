@@ -1,0 +1,40 @@
+<header class="site-header">
+    <div class="header-container">
+      <a routerLink="/" class="logo">
+        <i class="fas fa-shield-alt"></i> InsuranceCo
+      </a>
+  
+      <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+  
+      <ul class="nav-links" [class.active]="menuOpen">
+        <li><a routerLink="/" (click)="closeMobileMenu()">Home</a></li>
+        <li><a routerLink="/about" (click)="closeMobileMenu()">About</a></li>
+        <li><a routerLink="/policies" (click)="closeMobileMenu()">Policies</a></li>
+  
+        <!-- Not logged in => Login dropdown -->
+        <li class="dropdown" *ngIf="!user" [class.open]="dropdownOpen">
+          <button class="btn-link dropbtn" (click)="toggleDropdown()">
+            Login <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a routerLink="/login-user" (click)="closeDropdown()"><i class="fas fa-user"></i> User Login</a>
+            <a routerLink="/login-agent" (click)="closeDropdown()"><i class="fas fa-id-badge"></i> Agent Login</a>
+            <a routerLink="/login-admin" (click)="closeDropdown()"><i class="fas fa-cog"></i> Admin Login</a>
+          </div>
+        </li>
+  
+        <!-- Logged in => Avatar dropdown -->
+        <li class="dropdown" *ngIf="user" [class.open]="dropdownOpen">
+          <button class="avatar" (click)="toggleDropdown()">
+            {{ getUserInitial() }}
+          </button>
+          <div class="dropdown-content">
+            <a (click)="goToProfile()"><i class="fas fa-user-circle"></i> Profile</a>
+            <a (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
