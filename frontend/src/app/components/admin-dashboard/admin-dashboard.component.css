@@ -23,6 +23,85 @@
     font-size: 1.1rem;
     color: #6b7280;
   }
+
+  .claims-button {
+    position: fixed;
+    top: 80px;
+    right: 60px;
+    padding: 12px 24px 12px 50px; /* Added left padding for icon */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    overflow: hidden; /* Prevent overflow of pseudo-elements */
+  }
+  
+  /* Icon using pseudo-element */
+  .claims-button::before {
+    content: "📋"; /* Clipboard icon - you can replace with an actual icon font if needed */
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+  }
+  
+  .claims-button:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  }
+  
+  .claims-button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Background glow effect */
+  .claims-button::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 35px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+  
+  .claims-button:hover::after {
+    opacity: 0.4;
+    filter: blur(5px);
+  }
+  
+  /* Animation for button attention */
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+    }
+  }
+  
+  .claims-button {
+    animation: pulse 2s infinite;
+  }
+  
   
   /* Stats Grid */
   .stats-grid {

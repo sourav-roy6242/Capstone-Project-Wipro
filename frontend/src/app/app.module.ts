@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule ,  ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthService } from './services/auth.service';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CreateClaimsComponent } from './components/claims/create-claims/create-claims.component';
+import { ClaimsListComponent } from './components/claims/claims-list/claims-list.component';
+import { ClaimPageComponent } from './components/claim-page/claim-page.component';
+import { AdminClaimComponent } from './components/admin-claim/admin-claim.component';
+
 
 
 @NgModule({
@@ -31,20 +36,26 @@ import { ProfileComponent } from './components/profile/profile.component';
     RegisterUserComponent,
     RegisterAgentComponent,
   
-    AgentPageComponent,
+    // AgentPageComponent,
     AdminDashboardComponent,
     HomeComponent,
     PoliciesComponent,
     InsuranceDetailComponent,
     NavbarComponent,
     FooterComponent,
-    ProfileComponent
+    ProfileComponent,
+    CreateClaimsComponent,
+    ClaimsListComponent,
+    ClaimPageComponent,
+    AdminClaimComponent,
+    AgentPageComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

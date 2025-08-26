@@ -97,7 +97,15 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { HomeComponent } from './components/home/home.component';
 import { PoliciesComponent } from './components/policies/policies.component';
 import { InsuranceDetailComponent } from './components/insurance-detail/insurance-detail.component';
-import { ProfileComponent } from './components/profile/profile.component'; // Import ProfileComponent
+import { ProfileComponent } from './components/profile/profile.component'; 
+import { CreateClaimsComponent } from './components/claims/create-claims/create-claims.component';
+import { ClaimsListComponent } from './components/claims/claims-list/claims-list.component';
+import { ClaimPageComponent } from './components/claim-page/claim-page.component';
+import { AdminClaimComponent } from './components/admin-claim/admin-claim.component';
+
+ 
+
+
 
 const routes: Routes = [
   // Default route → Home page
@@ -111,12 +119,17 @@ const routes: Routes = [
   { path: 'agent-page', component: AgentPageComponent },
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'policies', component: PoliciesComponent },
+  { path: 'claims', component: ClaimPageComponent },
   
   // Profile routes - Add these lines
   { path: 'profile', component: ProfileComponent },
   { path: 'profile-user', component: ProfileComponent },
   { path: 'profile-agent', component: ProfileComponent },
   { path: 'profile-admin', component: ProfileComponent },
+  { path: '', redirectTo: '/create-claims', pathMatch: 'full' },
+  { path: 'create-claims', component: CreateClaimsComponent },
+  { path: 'list-claims', component: ClaimsListComponent },
+  { path: 'admin-claims', component: AdminClaimComponent },
 
   // Dynamic detail page → e.g. /insurance/health
   { path: 'insurance/:type', component: InsuranceDetailComponent },

@@ -1,0 +1,92 @@
+<!-- <h2>Claims List</h2>
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>User Name</th>
+      <th>Policy ID</th>
+      <th>Policy Type</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Date Created</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let claim of claims">
+      <td>{{ claim.id }}</td>
+      <td>{{ claim.user_name }}</td>
+      <td>{{ claim.policy_id }}</td>
+      <td>{{ claim.policy_type }}</td>
+      <td>{{ claim.description }}</td>
+      <td>{{ claim.amount }}</td>
+      <td>{{ claim.date_created | date:'short' }}</td>
+      <td>{{ claim.status }}</td>
+    </tr>
+  </tbody>
+</table> -->
+
+
+
+<div class="claims-container">
+    <!-- Loading state -->
+    <div *ngIf="claims.length === 0" class="loading-state">
+      <p>Loading claims...</p>
+    </div>
+  
+    <!-- Claims cards -->
+    <div *ngFor="let claim of claims" class="claim-card">
+      <div class="card-header">
+        <h3 class="claim-title">Claim #{{claim.id}}</h3>
+        <span class="status-badge" [class]="'status-' + (claim.status?.toLowerCase() || 'unknown')">
+          {{ claim.status || 'UNKNOWN' }}
+        </span>
+      </div>
+      
+      <div class="card-body">
+        <!-- Safe property access using helper methods -->
+        <div class="claim-detail" *ngIf="getProperty(claim, 'claimNumber') || getProperty(claim, 'claim_number')">
+          <span class="detail-label">Claim Number:</span>
+          <span class="detail-value">{{ getProperty(claim, 'claimNumber') || getProperty(claim, 'claim_number') }}</span>
+        </div>
+        
+        <div class="claim-detail" *ngIf="getProperty(claim, 'dateCreated') || getProperty(claim, 'date_created')">
+          <span class="detail-label">Date Created:</span>
+          <span class="detail-value">{{ (getProperty(claim, 'dateCreated') || getProperty(claim, 'date_created')) | date:'mediumDate' }}</span>
+        </div>
+        
+        <div class="claim-detail" *ngIf="getProperty(claim, 'submissionDate') || getProperty(claim, 'submission_date')">
+          <span class="detail-label">Submission Date:</span>
+          <span class="detail-value">{{ (getProperty(claim, 'submissionDate') || getProperty(claim, 'submission_date')) | date:'mediumDate' }}</span>
+        </div>
+        
+        <div class="claim-detail" *ngIf="getProperty(claim, 'amount')">
+          <span class="detail-label">Amount:</span>
+          <span class="detail-value">{{ getProperty(claim, 'amount') | currency }}</span>
+        </div>
+        
+        <div class="claim-detail" *ngIf="getProperty(claim, 'type') || getProperty(claim, 'claim_type')">
+          <span class="detail-label">Type:</span>
+          <span class="detail-value">{{ getProperty(claim, 'type') || getProperty(claim, 'claim_type') }}</span>
+        </div>
+        
+        <div class="claim-detail" *ngIf="getProperty(claim, 'description')">
+          <span class="detail-label">Description:</span>
+          <p class="claim-description">{{ getProperty(claim, 'description') }}</p>
+        </div>
+        
+        <!-- Display any other properties that might exist -->
+        <ng-container *ngFor="let key of getOtherProperties(claim)">
+          <div class="claim-detail">
+            <span class="detail-label">{{ formatLabel(key) }}:</span>
+            <span class="detail-value">{{ getProperty(claim, key) }}</span>
+          </div>
+        </ng-container>
+      </div>
+      
+      <div class="card-footer">
+        <button class="action-button view-btn">View Details</button>
+        <button class="action-button edit-btn">Edit</button>
+      </div>
+    </div>
+  </div>

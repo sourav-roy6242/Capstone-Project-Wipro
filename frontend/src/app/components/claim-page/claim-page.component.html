@@ -1,0 +1,100 @@
+<div class="claim-page-container">
+    <!-- Header section -->
+    <div class="page-header">
+      <h2>Claim Management Dashboard</h2>
+      <p class="page-subtitle">Review and process pending insurance claims</p>
+    </div>
+  
+    <!-- Loading state -->
+    <div *ngIf="loading" class="loading-state">
+      <p>Loading claims...</p>
+    </div>
+  
+    <!-- Error state -->
+    <div *ngIf="error" class="error-state">
+      <p>{{ error }}</p>
+      <button (click)="loadPendingClaims()">Retry</button>
+    </div>
+  
+    <!-- Content when not loading -->
+    <div *ngIf="!loading && !error">
+      <!-- Stats overview -->
+      <div class="stats-overview" *ngIf="claims.length > 0">
+        <div class="stat-card">
+          <h3>Total Claims</h3>
+          <p class="stat-number">{{ claims.length }}</p>
+        </div>
+        <div class="stat-card">
+          <h3>Pending</h3>
+          <p class="stat-number">{{ getStatusCount('Pending') }}</p>
+        </div>
+        <div class="stat-card">
+          <h3>Approved</h3>
+          <p class="stat-number">0</p> <!-- Will be 0 since we're only showing pending -->
+        </div>
+        <div class="stat-card">
+          <h3>Rejected</h3>
+          <p class="stat-number">0</p> <!-- Will be 0 since we're only showing pending -->
+        </div>
+      </div>
+  
+      <!-- Claims table -->
+      <div class="table-container" *ngIf="claims.length > 0">
+        <div class="table-header">
+          <h3>Pending Applications</h3>
+          <div class="table-controls">
+            <input type="text" placeholder="Search claims..." class="search-input">
+          </div>
+        </div>
+        
+        <div class="table-responsive">
+          <table class="modern-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Policy ID</th>
+                <th>Policy Type</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let claim of claims">
+                <td class="claim-id">{{ claim.id }}</td>
+                <td class="user-name">{{ claim.user_name }}</td>
+                <td>{{ claim.policy_id }}</td>
+                <td>
+                  <span class="policy-type-badge">{{ claim.policy_type }}</span>
+                </td>
+                <td class="claim-desc">{{ claim.description }}</td>
+                <td class="claim-amount">{{ claim.amount }}</td>
+                <td>
+                  <span class="status-badge" [ngClass]="getStatusClass(claim.status)">
+                    {{ claim.status }}
+                  </span>
+                </td>
+                <td class="action-buttons">
+                  <button class="btn-approve" (click)="approveClaim(claim.id!)">
+                    <span class="icon-check"></span> Approve
+                  </button>
+                  <button class="btn-reject" (click)="rejectClaim(claim.id!)">
+                    <span class="icon-x"></span> Reject
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  
+      <!-- Empty state -->
+      <div class="empty-state" *ngIf="claims.length === 0">
+        <div class="empty-icon">📋</div>
+        <h3>No Pending Claims</h3>
+        <p>There are currently no pending claims to review.</p>
+      </div>
+    </div>
+  </div>

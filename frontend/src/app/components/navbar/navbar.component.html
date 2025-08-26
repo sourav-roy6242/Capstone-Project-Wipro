@@ -12,6 +12,7 @@
         <li><a routerLink="/" (click)="closeMobileMenu()">Home</a></li>
         <li><a routerLink="/about" (click)="closeMobileMenu()">About</a></li>
         <li><a routerLink="/policies" (click)="closeMobileMenu()">Policies</a></li>
+        <li><a routerLink="/list-claims" (click)="closeMobileMenu()">Claims</a></li>
   
         <!-- Not logged in => Login dropdown -->
         <li class="dropdown" *ngIf="!user" [class.open]="dropdownOpen">
