@@ -12,39 +12,15 @@ pipeline {
             }
         }
 
-        stage('Build Frontend Image') {
+        stage('Build Images') {
             steps {
-                dir('frontend') {
-                    sh 'docker build -t ${PROJECT_NAME}-frontend .'
-                }
-            }
-        }
-
-        stage('Build Backend Images') {
-            steps {
-                dir('backend/auth-service') {
-                    sh 'docker build -t ${PROJECT_NAME}-auth-service .'
-                }
-                dir('backend/policy-service') {
-                    sh 'docker build -t ${PROJECT_NAME}-policy-service .'
-                }
-                dir('backend/claim-service') {
-                    sh 'docker build -t ${PROJECT_NAME}-claim-service .'
-                }
-            }
-        }
-
-        stage('Build Gateway Image') {
-            steps {
-                dir('gateway') {
-                    sh 'docker build -t ${PROJECT_NAME}-gateway .'
-                }
+                sh 'docker-compose build'
             }
         }
 
         stage('Run Containers') {
             steps {
-                sh 'docker-compose up -d --build'
+                sh 'docker-compose up -d'
             }
         }
     }
@@ -56,4 +32,3 @@ pipeline {
         }
     }
 }
-
