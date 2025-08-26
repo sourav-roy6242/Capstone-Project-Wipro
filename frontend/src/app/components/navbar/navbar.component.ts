@@ -97,6 +97,19 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+message: string | null = null;
+
+goTo(path: string) {
+  if (!this.authService.isLoggedIn()) {
+    this.message = "⚠️ Please login to continue.";
+    this.router.navigate(['/login']);
+  } else {
+    this.router.navigate([path]);
+  }
+}
+
+
+
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
     if (this.menuOpen) {

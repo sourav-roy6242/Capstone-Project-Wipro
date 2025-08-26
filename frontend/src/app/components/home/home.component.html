@@ -1,374 +1,460 @@
-  <div class="homepage">
-    <section class="hero">
-      <div class="hero-slide" *ngFor="let slide of heroSlides; let i = index" 
-           [class.active]="i === currentSlide" 
-           [style.background-image]="'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(' + slide.image + ')'">
-        <div class="hero-content">
-          <h1>{{ slide.quote }}</h1>
-          <p>{{ slide.subText }}</p>
-          <div class="hero-buttons">
-            <button class="btn btn-primary" routerLink="/register-user">Get Started</button>
-            <button class="btn btn-outline" routerLink="/policies">Explore Policies</button>
-          </div>
-        </div>
-      </div>
-  
-      <button class="hero-nav hero-prev" (click)="prevSlide()">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-      <button class="hero-nav hero-next" (click)="nextSlide()">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-  
-      <div class="hero-dots">
-        <span *ngFor="let slide of heroSlides; let i = index" 
-              [class.active]="i === currentSlide" 
-              (click)="goToSlide(i)"></span>
-      </div>
-    </section>
-  
-    <!-- Features section remains the same -->
-    <section class="features">
-      <div class="section-title animate" [class.visible]="isVisible['features']">
-        <h2>Why Choose InsuranceCo?</h2>
-        <p>We provide peace of mind through comprehensive coverage and exceptional service</p>
-      </div>
-      
-      <div class="features-grid">
-        <div class="feature-card animate delay-1" [class.visible]="isVisible['features']">
-          <div class="feature-icon">
-            <i class="fas fa-hand-holding-usd"></i>
-          </div>
-          <h3>Affordable Premiums</h3>
-          <p>Get comprehensive coverage at competitive rates with flexible payment options.</p>
-        </div>
-        
-        <div class="feature-card animate delay-2" [class.visible]="isVisible['features']">
-          <div class="feature-icon">
-            <i class="fas fa-clock"></i>
-          </div>
-          <h3>Quick Claims Processing</h3>
-          <p>Our efficient claims process ensures you get support when you need it most.</p>
-        </div>
-        
-        <div class="feature-card animate delay-3" [class.visible]="isVisible['features']">
-          <div class="feature-icon">
-            <i class="fas fa-headset"></i>
-          </div>
-          <h3>24/7 Support</h3>
-          <p>Our dedicated team is always available to assist you with any questions or concerns.</p>
-        </div>
-      </div>
-    </section>
-  
-    <!-- Stats section - added IDs for animation -->
-    <!-- <section class="stats" id="stats-section" [class.visible]="isVisible['stats']">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-number" id="satisfaction-stat">{{ animatedStats.customerSatisfaction }}%</div>
-          <div class="stat-text">Customer Satisfaction</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" id="policies-stat">{{ animatedStats.policiesIssued }}+</div>
-          <div class="stat-text">Policies Issued</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" id="years-stat">{{ animatedStats.yearsExperience }}+</div>
-          <div class="stat-text">Years of Experience</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">24/7</div>
-          <div class="stat-text">Support Availability</div>
-        </div>
-      </div>
-    </section> -->
+<!-- <div *ngIf="message" class="alert-box">
+  {{ message }}
+</div> -->
 
+<div *ngIf="message" class="notification-container">
+  <div class="notification">
+    <span class="notification-icon">⚠️</span>
+    <p class="notification-message">{{ message }}</p>
+    <button class="notification-button" routerLink="/login-user">Login</button>
+    <button class="notification-close" (click)="message = null">X</button>
+  </div>
+</div>
 
-    <section class="stats" id="stats-section" [class.visible]="isVisible['stats']">
-      <div class="stats-container">
-        <div class="stats-grid">
-          <div class="stat-item">
-            <div class="stat-icon">
-              <i class="fas fa-smile"></i>
-            </div>
-            <div class="stat-content">
-              <div class="stat-number" id="satisfaction-stat">{{ animatedStats.customerSatisfaction }}%</div>
-              <div class="stat-text">Customer Satisfaction</div>
-            </div>
-          </div>
-          
-          <div class="stat-item">
-            <div class="stat-icon">
-              <i class="fas fa-file-contract"></i>
-            </div>
-            <div class="stat-content">
-              <div class="stat-number" id="policies-stat">{{ animatedStats.policiesIssued }}+</div>
-              <div class="stat-text">Policies Issued</div>
-            </div>
-          </div>
-          
-          <div class="stat-item">
-            <div class="stat-icon">
-              <i class="fas fa-history"></i>
-            </div>
-            <div class="stat-content">
-              <div class="stat-number" id="years-stat">{{ animatedStats.yearsExperience }}+</div>
-              <div class="stat-text">Years of Experience</div>
-            </div>
-          </div>
-          
-          <div class="stat-item">
-            <div class="stat-icon">
-              <i class="fas fa-headset"></i>
-            </div>
-            <div class="stat-content">
-              <div class="stat-number">24/7</div>
-              <div class="stat-text">Support Availability</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="insurance">
-      <div class="insurance-container">
-        <!-- Decorative Image Side -->
-        <div class="insurance-decoration">
-          <div class="decoration-image">
-            <img src="/assets/img8.jpg" alt="Insurance Protection" class="decoration-img">
-            <div class="image-overlay"></div>
-          </div>
-          <div class="decoration-content">
-            <h3>Your Peace of Mind</h3>
-            <p>We've protected over 50,000 families and businesses with comprehensive insurance solutions</p>
-            <div class="decoration-stats">
-              <div class="stat">
-                <span class="stat-number">95%</span>
-                <span class="stat-label">Customer Satisfaction</span>
-              </div>
-              <div class="stat">
-                <span class="stat-number">24/7</span>
-                <span class="stat-label">Support</span>
-              </div>
-            </div>
-          </div>
-        </div>
-    
-        <!-- Insurance Cards -->
-        <div class="insurance-content">
-          <div class="section-title animate" [class.visible]="isVisible['insurance']">
-            <h2>Our Insurance Policies</h2>
-            <p>Choose from a wide range of insurance policies tailored to your needs</p>
-          </div>
-        
-          <div class="insurance-grid">
-            <div class="insurance-card animate delay-1" [class.visible]="isVisible['insurance']">
-              <div class="insurance-icon">
-                <i class="fas fa-car"></i>
-              </div>
-              <h3>Auto Insurance</h3>
-              <p>Comprehensive coverage for your vehicle at competitive premiums.</p>
-              <button class="btn btn-outline insurance-btn" routerLink="/insurance/auto">
-                <i class="fas fa-info-circle"></i> Learn More
-              </button>
-            </div>
-        
-            <div class="insurance-card animate delay-2" [class.visible]="isVisible['insurance']">
-              <div class="insurance-icon">
-                <i class="fas fa-home"></i>
-              </div>
-              <h3>Home Insurance</h3>
-              <p>Protect your home and valuables with reliable home insurance plans.</p>
-              <button class="btn btn-outline insurance-btn" routerLink="/insurance/home">
-                <i class="fas fa-info-circle"></i> Learn More
-              </button>
-            </div>
-        
-            <div class="insurance-card animate delay-3" [class.visible]="isVisible['insurance']">
-              <div class="insurance-icon">
-                <i class="fas fa-heart"></i>
-              </div>
-              <h3>Life Insurance</h3>
-              <p>Secure your family's future with our flexible life insurance policies.</p>
-              <button class="btn btn-outline insurance-btn" routerLink="/insurance/life">
-                <i class="fas fa-info-circle"></i> Learn More
-              </button>
-            </div>
-        
-            <div class="insurance-card animate delay-4" [class.visible]="isVisible['insurance']">
-              <div class="insurance-icon">
-                <i class="fas fa-notes-medical"></i>
-              </div>
-              <h3>Health Insurance</h3>
-              <p>Comprehensive health coverage for you and your loved ones.</p>
-              <button class="btn btn-outline insurance-btn" routerLink="/insurance/health">
-                <i class="fas fa-info-circle"></i> Learn More
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- Claims Section with Image -->
-<section class="claims-section">
-  <div class="claims-container">
-    <div class="claims-content">
-      <div class="claims-text">
-        <div class="section-title">
-          <h2>Easy Claims Process</h2>
-          <p>Our streamlined claims process makes it simple to get the compensation you deserve</p>
-        </div>
-        
-        <!-- <div class="claims-features-list">
-          <div class="feature-item">
-            <i class="fas fa-check-circle"></i>
-            <span>Online claim submission 24/7</span>
-          </div>
-          <div class="feature-item">
-            <i class="fas fa-check-circle"></i>
-            <span>Track your claim status in real-time</span>
-          </div>
-          <div class="feature-item">
-            <i class="fas fa-check-circle"></i>
-            <span>Direct communication with claims specialists</span>
-          </div>
-          <div class="feature-item">
-            <i class="fas fa-check-circle"></i>
-            <span>Fast processing and payment</span>
-          </div>
-        </div> -->
-        
-        <div class="claims-timeline">
-          <div class="timeline-step">
-            <div class="timeline-marker">
-              <div class="timeline-dot"></div>
-              <div class="timeline-line"></div>
-            </div>
-            <div class="timeline-content">
-              <h3>Step 1: Report Incident</h3>
-              <p>Contact us within 24 hours of the incident occurring</p>
-            </div>
-          </div>
-          
-          <div class="timeline-step">
-            <div class="timeline-marker">
-              <div class="timeline-dot"></div>
-              <div class="timeline-line"></div>
-            </div>
-            <div class="timeline-content">
-              <h3>Step 2: Complete Claim Form</h3>
-              <p>Fill out the online form with accurate details of the incident</p>
-            </div>
-          </div>
-          
-          <div class="timeline-step">
-            <div class="timeline-marker">
-              <div class="timeline-dot"></div>
-              <div class="timeline-line"></div>
-            </div>
-            <div class="timeline-content">
-              <h3>Step 3: Upload Documents</h3>
-              <p>Submit all supporting evidence through our secure portal</p>
-            </div>
-          </div>
-          
-          <div class="timeline-step">
-            <div class="timeline-marker">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h3>Step 4: Receive Decision</h3>
-              <p>Get notified of claim approval and receive payment</p>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="claims-actions">
-          <button class="btn btn-primary" routerLink="/create-claims">
-            <i class="fas fa-plus-circle"></i> File a Claim Now
+<div class="homepage">
+  <section class="hero">
+    <div
+      class="hero-slide"
+      *ngFor="let slide of heroSlides; let i = index"
+      [class.active]="i === currentSlide"
+      [style.background-image]="
+        'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(' +
+        slide.image +
+        ')'
+      "
+    >
+      <div class="hero-content">
+        <h1>{{ slide.quote }}</h1>
+        <p>{{ slide.subText }}</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" routerLink="/register-user">
+            Get Started
           </button>
-          <button class="btn btn-outline" routerLink="/list-claims">
-            <i class="fas fa-search"></i> Check Your Claim Status
+          <button class="btn btn-outline" routerLink="/policies">
+            Explore Policies
           </button>
         </div>
-      </div>
-      
-      <div class="claims-image">
-        <!-- Using a free stock image from Pexels -->
-        <img src="../../assets/img9.jpg" alt="Easy Claims Process" class="claims-img">
-        <div class="image-overlay"></div>
       </div>
     </div>
-  </div>
-</section>
 
-   <section class="testimonials">
-    <div class="testimonials-container">
-      <div class="section-title">
-        <h2>What Our Clients Say</h2>
-        <p>Hear from our satisfied customers about their experience with InsuranceCo</p>
-      </div>
-    
-      <div class="testimonial-slider">
-        <div class="testimonial-track">
-          <div class="testimonial-card" *ngFor="let testimonial of testimonials; let i = index" 
-               [class.active]="i === currentTestimonial">
-            <div class="testimonial-content">
-              <div class="testimonial-quote">
-                <i class="fas fa-quote-left"></i>
-              </div>
-              <p class="testimonial-text">"{{testimonial.text}}"</p>
-              <div class="testimonial-author">
-                <div class="author-avatar">
-                  <img [src]="testimonial.avatar" [alt]="testimonial.name" (error)="testimonial.avatar = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM4ODgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAgMjF2LTJhNCA0IDAgMCAwLTQtNEg4YTQgNCAwIDAgMC00IDR2MiI+PC9wYXRoPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCI+PC9jaXJjbGU+PC9zdmc+'">
-                </div>
-                <div class="author-details">
-                  <h4>{{testimonial.name}}</h4>
-                  <p>{{testimonial.role}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
+    <button class="hero-nav hero-prev" (click)="prevSlide()">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="hero-nav hero-next" (click)="nextSlide()">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <div class="hero-dots">
+      <span
+        *ngFor="let slide of heroSlides; let i = index"
+        [class.active]="i === currentSlide"
+        (click)="goToSlide(i)"
+      ></span>
+    </div>
+  </section>
+
+  <!-- Features section remains the same -->
+  <section class="features">
+    <div class="section-title animate" [class.visible]="isVisible['features']">
+      <h2>Why Choose InsuranceCo?</h2>
+      <p>
+        We provide peace of mind through comprehensive coverage and exceptional
+        service
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div
+        class="feature-card animate delay-1"
+        [class.visible]="isVisible['features']"
+      >
+        <div class="feature-icon">
+          <i class="fas fa-hand-holding-usd"></i>
         </div>
-    
-        <button class="testimonial-nav testimonial-prev" (click)="prevTestimonial()">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="testimonial-nav testimonial-next" (click)="nextTestimonial()">
-          <i class="fas fa-chevron-right"></i>
-        </button>
+        <h3>Affordable Premiums</h3>
+        <p>
+          Get comprehensive coverage at competitive rates with flexible payment
+          options.
+        </p>
       </div>
-    
-      <div class="testimonial-dots">
-        <span *ngFor="let testimonial of testimonials; let i = index" 
-              [class.active]="i === currentTestimonial" 
-              (click)="goToTestimonial(i)"></span>
+
+      <div
+        class="feature-card animate delay-2"
+        [class.visible]="isVisible['features']"
+      >
+        <div class="feature-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <h3>Quick Claims Processing</h3>
+        <p>
+          Our efficient claims process ensures you get support when you need it
+          most.
+        </p>
+      </div>
+
+      <div
+        class="feature-card animate delay-3"
+        [class.visible]="isVisible['features']"
+      >
+        <div class="feature-icon">
+          <i class="fas fa-headset"></i>
+        </div>
+        <h3>24/7 Support</h3>
+        <p>
+          Our dedicated team is always available to assist you with any
+          questions or concerns.
+        </p>
       </div>
     </div>
   </section>
 
-<section class="cta-section">
-  <div class="cta-header">
-    <h2>
-      Ready to Protect Your Future?
-    </h2>
-    <p>Join thousands of satisfied customers who trust InsuranceCo with their insurance needs</p>
+  <section
+    class="stats"
+    id="stats-section"
+    [class.visible]="isVisible['stats']"
+  >
+    <div class="stats-container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fas fa-smile"></i>
+          </div>
+          <div class="stat-content">
+            <div class="stat-number" id="satisfaction-stat">
+              {{ animatedStats.customerSatisfaction }}%
+            </div>
+            <div class="stat-text">Customer Satisfaction</div>
+          </div>
+        </div>
 
-  </div>
-  <div class="cta-buttons">
-    <button class="cta-button" routerLink="/register-user">
-      <i class="fas fa-user"></i> Register as User
-    </button>
-    <button class="cta-button" routerLink="/register-agent">
-      <i class="fas fa-briefcase"></i> Register as Agent
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fas fa-file-contract"></i>
+          </div>
+          <div class="stat-content">
+            <div class="stat-number" id="policies-stat">
+              {{ animatedStats.policiesIssued }}+
+            </div>
+            <div class="stat-text">Policies Issued</div>
+          </div>
+        </div>
 
-    </button>
-  </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fas fa-history"></i>
+          </div>
+          <div class="stat-content">
+            <div class="stat-number" id="years-stat">
+              {{ animatedStats.yearsExperience }}+
+            </div>
+            <div class="stat-text">Years of Experience</div>
+          </div>
+        </div>
 
-</section>
-  
-  </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <div class="stat-content">
+            <div class="stat-number">24/7</div>
+            <div class="stat-text">Support Availability</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="insurance">
+    <div class="insurance-container">
+      <!-- Decorative Image Side -->
+      <div class="insurance-decoration">
+        <div class="decoration-image">
+          <img
+            src="/assets/img8.jpg"
+            alt="Insurance Protection"
+            class="decoration-img"
+          />
+          <div class="image-overlay"></div>
+        </div>
+        <div class="decoration-content">
+          <h3>Your Peace of Mind</h3>
+          <p>
+            We've protected over 50,000 families and businesses with
+            comprehensive insurance solutions
+          </p>
+          <div class="decoration-stats">
+            <div class="stat">
+              <span class="stat-number">95%</span>
+              <span class="stat-label">Customer Satisfaction</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">Support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Insurance Cards -->
+
+      <div class="insurance-content">
+        <div
+          class="section-title animate"
+          [class.visible]="isVisible['insurance']"
+        >
+          <h2>Our Insurance Policies</h2>
+          <p>
+            Choose from a wide range of insurance policies tailored to your
+            needs
+          </p>
+        </div>
+
+        <div class="insurance-grid">
+          <div
+            class="insurance-card animate delay-1"
+            [class.visible]="isVisible['insurance']"
+          >
+            <div class="insurance-icon">
+              <i class="fas fa-car"></i>
+            </div>
+            <h3>Auto Insurance</h3>
+            <p>
+              Comprehensive coverage for your vehicle at competitive premiums.
+            </p>
+            <button
+              class="btn btn-outline insurance-btn"
+              (click)="goTo('/insurance/auto')"
+            >
+              <i class="fas fa-info-circle"></i> Learn More
+            </button>
+          </div>
+
+          <div
+            class="insurance-card animate delay-2"
+            [class.visible]="isVisible['insurance']"
+          >
+            <div class="insurance-icon">
+              <i class="fas fa-home"></i>
+            </div>
+            <h3>Home Insurance</h3>
+            <p>
+              Protect your home and valuables with reliable home insurance
+              plans.
+            </p>
+            <button
+              class="btn btn-outline insurance-btn"
+              (click)="goTo('/insurance/home')"
+            >
+              <i class="fas fa-info-circle"></i> Learn More
+            </button>
+          </div>
+
+          <div
+            class="insurance-card animate delay-3"
+            [class.visible]="isVisible['insurance']"
+          >
+            <div class="insurance-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3>Life Insurance</h3>
+            <p>
+              Secure your family's future with our flexible life insurance
+              policies.
+            </p>
+            <button
+              class="btn btn-outline insurance-btn"
+              (click)="goTo('/insurance/life')"
+            >
+              <i class="fas fa-info-circle"></i> Learn More
+            </button>
+          </div>
+
+          <div
+            class="insurance-card animate delay-4"
+            [class.visible]="isVisible['insurance']"
+          >
+            <div class="insurance-icon">
+              <i class="fas fa-notes-medical"></i>
+            </div>
+            <h3>Health Insurance</h3>
+            <p>Comprehensive health coverage for you and your loved ones.</p>
+            <button
+              class="btn btn-outline insurance-btn"
+              (click)="goTo('/insurance/health')"
+            >
+              <i class="fas fa-info-circle"></i> Learn More
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Claims Section with Image -->
+  <section class="claims-section">
+    <div class="claims-container">
+      <div class="claims-content">
+        <div class="claims-text">
+          <div class="section-title">
+            <h2>Easy Claims Process</h2>
+            <p>
+              Our streamlined claims process makes it simple to get the
+              compensation you deserve
+            </p>
+          </div>
+
+          <div class="claims-timeline">
+            <div class="timeline-step">
+              <div class="timeline-marker">
+                <div class="timeline-dot"></div>
+                <div class="timeline-line"></div>
+              </div>
+              <div class="timeline-content">
+                <h3>Step 1: Report Incident</h3>
+                <p>Contact us within 24 hours of the incident occurring</p>
+              </div>
+            </div>
+
+            <div class="timeline-step">
+              <div class="timeline-marker">
+                <div class="timeline-dot"></div>
+                <div class="timeline-line"></div>
+              </div>
+              <div class="timeline-content">
+                <h3>Step 2: Complete Claim Form</h3>
+                <p>
+                  Fill out the online form with accurate details of the incident
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-step">
+              <div class="timeline-marker">
+                <div class="timeline-dot"></div>
+                <div class="timeline-line"></div>
+              </div>
+              <div class="timeline-content">
+                <h3>Step 3: Upload Documents</h3>
+                <p>Submit all supporting evidence through our secure portal</p>
+              </div>
+            </div>
+
+            <div class="timeline-step">
+              <div class="timeline-marker">
+                <div class="timeline-dot"></div>
+              </div>
+              <div class="timeline-content">
+                <h3>Step 4: Receive Decision</h3>
+                <p>Get notified of claim approval and receive payment</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="claims-actions">
+            <button class="btn btn-primary" (click)="goTo('/create-claims')">
+              <i class="fas fa-plus-circle"></i> File a Claim Now
+            </button>
+
+            <button class="btn btn-outline" (click)="goTo('/list-claims')">
+              <i class="fas fa-search"></i> Check Your Claim Status
+            </button>
+          </div>
+        </div>
+
+        <div class="claims-image">
+          <!-- Using a free stock image from Pexels -->
+          <img
+            src="../../assets/img9.jpg"
+            alt="Easy Claims Process"
+            class="claims-img"
+          />
+          <div class="image-overlay"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="testimonials-container">
+      <div class="section-title">
+        <h2>What Our Clients Say</h2>
+        <p>
+          Hear from our satisfied customers about their experience with
+          InsuranceCo
+        </p>
+      </div>
+
+      <div class="testimonial-slider">
+        <div class="testimonial-track">
+          <div
+            class="testimonial-card"
+            *ngFor="let testimonial of testimonials; let i = index"
+            [class.active]="i === currentTestimonial"
+          >
+            <div class="testimonial-content">
+              <div class="testimonial-quote">
+                <i class="fas fa-quote-left"></i>
+              </div>
+              <p class="testimonial-text">"{{ testimonial.text }}"</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">
+                  <img
+                    [src]="testimonial.avatar"
+                    [alt]="testimonial.name"
+                    (error)="
+                      testimonial.avatar =
+                        'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM4ODgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAgMjF2LTJhNCA0IDAgMCAwLTQtNEg4YTQgNCAwIDAgMC00IDR2MiI+PC9wYXRoPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCI+PC9jaXJjbGU+PC9zdmc+'
+                    "
+                  />
+                </div>
+                <div class="author-details">
+                  <h4>{{ testimonial.name }}</h4>
+                  <p>{{ testimonial.role }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="testimonial-nav testimonial-prev"
+          (click)="prevTestimonial()"
+        >
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button
+          class="testimonial-nav testimonial-next"
+          (click)="nextTestimonial()"
+        >
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <div class="testimonial-dots">
+        <span
+          *ngFor="let testimonial of testimonials; let i = index"
+          [class.active]="i === currentTestimonial"
+          (click)="goToTestimonial(i)"
+        ></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-header">
+      <h2>Ready to Protect Your Future?</h2>
+      <p>
+        Join thousands of satisfied customers who trust InsuranceCo with their
+        insurance needs
+      </p>
+    </div>
+    <div class="cta-buttons">
+      <button class="cta-button" routerLink="/register-user">
+        <i class="fas fa-user"></i> Register as User
+      </button>
+      <button class="cta-button" routerLink="/register-agent">
+        <i class="fas fa-briefcase"></i> Register as Agent
+      </button>
+    </div>
+  </section>
+</div>
