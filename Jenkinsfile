@@ -40,7 +40,6 @@ pipeline {
 
     environment {
         PROJECT_NAME = "insurence-management"
-        KUBECONFIG = "/home/jenkins/.kube/config"   // adjust path to your Jenkins user's kubeconfig
     }
 
     stages {
@@ -50,27 +49,31 @@ pipeline {
             }
         }
 
-        stage('Build Images') {
+        stage('Build Docker Images') {
             steps {
                 sh 'docker-compose build'
             }
         }
 
-        stage('Run Containers (Local Compose)') {
+        stage('Run Containers (Optional for local)') {
             steps {
                 sh 'docker-compose up -d'
             }
         }
 
-        stage('Deploy to Minikube') {
+        stage('Deploy to Kubernetes') {
             steps {
                 script {
                     echo "Deploying to Kubernetes..."
                     
-                    sh '''
-                        kubectl config use-context minikube
-                        kubectl apply -f k8s/
-                    '''
+                    // Check if kubeconfig is working
+                    sh 'kubectl config current-context || true'
+                    
+                    // Show cluster info
+                    sh 'kubectl cluster-info'
+                    
+                    // Apply all manifests (assuming they are in k8s/ folder)
+                    sh 'kubectl apply -f k8s/'
                 }
             }
         }
