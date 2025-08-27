@@ -1,34 +1,3 @@
-<!-- 
-<h2>Admin Claim Page (Agent Approved Applications)</h2>
-<table border="1">
-  <tr>
-    <th>ID</th>
-    <th>User</th>
-    <th>Policy ID</th>
-    <th>Policy Type</th>
-    <th>Description</th>
-    <th>Amount</th>
-    <th>Status</th>
-    <th>Action</th>
-  </tr>
-  <tr *ngFor="let claim of claims">
-    <td>{{ claim.id }}</td>
-    <td>{{ claim.user_name }}</td>
-    <td>{{ claim.policy_id }}</td>
-    <td>{{ claim.policy_type }}</td>
-    <td>{{ claim.description }}</td>
-    <td>{{ claim.amount }}</td>
-    <td>{{ claim.status }}</td>
-    <td>
-      <button (click)="approveClaim(claim.id!)">Approve</button>
-    </td>
-  </tr>
-</table> -->
-
-
-
-
-
 <div class="admin-container">
   <div class="page-header">
     <h2><i class="fas fa-file-alt"></i> Agent Approved Applications</h2>
@@ -58,7 +27,7 @@
         <i class="fas fa-check-circle"></i>
       </div>
       <div class="stat-info">
-        <h3>0</h3>
+        <h3>{{ getApprovedTodayCount() }}</h3>
         <p>Approved Today</p>
       </div>
     </div>
@@ -68,7 +37,7 @@
       </div>
       <div class="stat-info">
         <h3>${{ getTotalAmount() | number:'1.2-2' }}</h3>
-        <p>Total Amount</p>
+        <p>Total Approved Amount</p>
       </div>
     </div>
   </div>

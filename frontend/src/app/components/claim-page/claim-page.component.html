@@ -1,100 +1,270 @@
-<div class="claim-page-container">
-    <!-- Header section -->
-    <div class="page-header">
-      <h2>Claim Management Dashboard</h2>
-      <p class="page-subtitle">Review and process pending insurance claims</p>
+<div class="claims-dashboard">
+  <!-- Header section -->
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h1><i class="fas fa-clipboard-list"></i> Claims Review Portal</h1>
+      <p>Manage and process insurance claim applications</p>
     </div>
-  
-    <!-- Loading state -->
-    <div *ngIf="loading" class="loading-state">
-      <p>Loading claims...</p>
-    </div>
-  
-    <!-- Error state -->
-    <div *ngIf="error" class="error-state">
-      <p>{{ error }}</p>
-      <button (click)="loadPendingClaims()">Retry</button>
-    </div>
-  
-    <!-- Content when not loading -->
-    <div *ngIf="!loading && !error">
-      <!-- Stats overview -->
-      <div class="stats-overview" *ngIf="claims.length > 0">
-        <div class="stat-card">
-          <h3>Total Claims</h3>
-          <p class="stat-number">{{ claims.length }}</p>
-        </div>
-        <div class="stat-card">
-          <h3>Pending</h3>
-          <p class="stat-number">{{ getStatusCount('Pending') }}</p>
-        </div>
-        <div class="stat-card">
-          <h3>Approved</h3>
-          <p class="stat-number">0</p> <!-- Will be 0 since we're only showing pending -->
-        </div>
-        <div class="stat-card">
-          <h3>Rejected</h3>
-          <p class="stat-number">0</p> <!-- Will be 0 since we're only showing pending -->
-        </div>
-      </div>
-  
-      <!-- Claims table -->
-      <div class="table-container" *ngIf="claims.length > 0">
-        <div class="table-header">
-          <h3>Pending Applications</h3>
-          <div class="table-controls">
-            <input type="text" placeholder="Search claims..." class="search-input">
-          </div>
-        </div>
-        
-        <div class="table-responsive">
-          <table class="modern-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>User</th>
-                <th>Policy ID</th>
-                <th>Policy Type</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let claim of claims">
-                <td class="claim-id">{{ claim.id }}</td>
-                <td class="user-name">{{ claim.user_name }}</td>
-                <td>{{ claim.policy_id }}</td>
-                <td>
-                  <span class="policy-type-badge">{{ claim.policy_type }}</span>
-                </td>
-                <td class="claim-desc">{{ claim.description }}</td>
-                <td class="claim-amount">{{ claim.amount }}</td>
-                <td>
-                  <span class="status-badge" [ngClass]="getStatusClass(claim.status)">
-                    {{ claim.status }}
-                  </span>
-                </td>
-                <td class="action-buttons">
-                  <button class="btn-approve" (click)="approveClaim(claim.id!)">
-                    <span class="icon-check"></span> Approve
-                  </button>
-                  <button class="btn-reject" (click)="rejectClaim(claim.id!)">
-                    <span class="icon-x"></span> Reject
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-  
-      <!-- Empty state -->
-      <div class="empty-state" *ngIf="claims.length === 0">
-        <div class="empty-icon">📋</div>
-        <h3>No Pending Claims</h3>
-        <p>There are currently no pending claims to review.</p>
+    <div class="header-actions">
+      <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search claims..." class="search-field">
       </div>
     </div>
   </div>
+
+  <!-- Loading state -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading claim applications...</p>
+  </div>
+
+  <!-- Error state -->
+  <div *ngIf="error" class="error-container">
+    <div class="error-icon">
+      <i class="fas fa-exclamation-triangle"></i>
+    </div>
+    <div class="error-message">
+      <h3>Something went wrong</h3>
+      <p>{{ error }}</p>
+    </div>
+    <button class="retry-button" (click)="loadPendingClaims()">
+      <i class="fas fa-redo"></i> Try Again
+    </button>
+  </div>
+
+  <!-- Content when not loading -->
+  <div *ngIf="!loading && !error" class="dashboard-content">
+    <!-- Stats overview -->
+    <div class="metrics-grid" *ngIf="claims.length > 0">
+      <div class="metric-card">
+        <div class="metric-icon total">
+          <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="metric-data">
+          <span class="metric-value">{{ claims.length }}</span>
+          <span class="metric-label">Total Claims</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon pending">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="metric-data">
+          <span class="metric-value">{{ getStatusCount('Pending') }}</span>
+          <span class="metric-label">Pending Review</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon approved">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="metric-data">
+          <span class="metric-value">0</span>
+          <span class="metric-label">Approved Today</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon amount">
+          <i class="fas fa-dollar-sign"></i>
+        </div>
+        <div class="metric-data">
+          <span class="metric-value">{{ getTotalAmount() | number:'1.2-2' }}</span>
+          <span class="metric-label">Total Amount</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content area -->
+    <div class="content-panels" *ngIf="claims.length > 0">
+      <!-- Claims list panel -->
+      <div class="claims-panel">
+        <div class="panel-header">
+          <h2>Pending Claims</h2>
+          <span class="badge count-badge">{{ claims.length }}</span>
+        </div>
+        
+        <div class="claims-list">
+          <div *ngFor="let claim of claims" 
+               class="claim-item" 
+               [class.selected]="selectedClaim?.id === claim.id"
+               (click)="selectClaim(claim)">
+            
+            <div class="claim-preview">
+              <div class="claim-meta">
+                <div class="user-avatar">
+                  <span class="avatar-initial">{{ getUserInitial(claim.user_name) }}</span>
+                </div>
+                <div class="claim-info">
+                  <h3 class="user-name">{{ claim.user_name || 'Unknown User' }}</h3>
+                  <p class="claim-id">#{{ claim.id }}</p>
+                </div>
+              </div>
+              
+              <div class="claim-details">
+                <p class="claim-description">{{ claim.description || 'No description provided' }}</p>
+                <div class="claim-tags">
+                  <span class="tag policy-tag">{{ claim.policy_type || 'N/A' }}</span>
+                  <span class="tag status-tag" [ngClass]="getStatusClass(claim.status)">
+                    {{ claim.status }}
+                  </span>
+                </div>
+              </div>
+              
+              <div class="claim-actions">
+                <span class="claim-amount">${{ claim.amount || '0.00' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Details panel -->
+      <div class="details-panel" *ngIf="selectedClaim">
+        <div class="panel-header">
+          <h2>Claim Details</h2>
+          <button class="close-btn" (click)="selectedClaim = null">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="details-content">
+          <!-- Claim summary -->
+          <div class="detail-section">
+            <div class="section-title">Claim Summary</div>
+            <div class="summary-grid">
+              <div class="summary-item">
+                <label>Claim ID</label>
+                <p>{{ selectedClaim.id }}</p>
+              </div>
+              <div class="summary-item">
+                <label>Policy ID</label>
+                <p>{{ selectedClaim.policy_id || 'N/A' }}</p>
+              </div>
+              <div class="summary-item">
+                <label>Policy Type</label>
+                <p class="policy-type">{{ selectedClaim.policy_type || 'N/A' }}</p>
+              </div>
+              <div class="summary-item">
+                <label>Submitted Date</label>
+                <p>{{ today | date:'mediumDate' }}</p>
+              </div>
+              <div class="summary-item">
+                <label>Claim Amount</label>
+                <p class="amount-highlights">{{ selectedClaim.amount || '0.00' }}</p>
+              </div>
+              <div class="summary-item">
+                <label>Status</label>
+                <span class="status-indicator" [ngClass]="getStatusClass(selectedClaim.status)">
+                  {{ selectedClaim.status }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- User information -->
+          <div class="detail-section">
+            <div class="section-title">Customer Information</div>
+            <div class="user-profile">
+              <div class="profile-avatar">
+                <span class="avatar-large">{{ getUserInitial(selectedClaim.user_name) }}</span>
+              </div>
+              <div class="profile-details">
+                <h3>{{ selectedClaim.user_name || 'Unknown User' }}</h3>
+                <div class="profile-meta">
+                  <span><i class="fas fa-user-circle"></i> Policy Holder</span>
+                  <span><i class="fas fa-history"></i> Member since 2022</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Claim description -->
+          <div class="detail-section">
+            <div class="section-title">Claim Description</div>
+            <div class="description-box">
+              <p>{{ selectedClaim.description || 'No description provided' }}</p>
+            </div>
+          </div>
+
+          <!-- Supporting documents -->
+          <div class="detail-section">
+            <div class="section-title">Supporting Documents</div>
+            <div class="documents-grid">
+              <div class="document-card">
+                <div class="doc-icon">
+                  <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="doc-info">
+                  <h4>Claim Form</h4>
+                  <p>PDF Document • 256 KB</p>
+                </div>
+                <button class="doc-action">
+                  <i class="fas fa-download"></i>
+                </button>
+              </div>
+              
+              <div class="document-card">
+                <div class="doc-icon">
+                  <i class="fas fa-file-image"></i>
+                </div>
+                <div class="doc-info">
+                  <h4>Damage Photos</h4>
+                  <p>ZIP Archive • 4.2 MB</p>
+                </div>
+                <button class="doc-action">
+                  <i class="fas fa-download"></i>
+                </button>
+              </div>
+              
+              <div class="document-card">
+                <div class="doc-icon">
+                  <i class="fas fa-file-invoice"></i>
+                </div>
+                <div class="doc-info">
+                  <h4>Invoice & Receipts</h4>
+                  <p>PDF Document • 1.1 MB</p>
+                </div>
+                <button class="doc-action">
+                  <i class="fas fa-download"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="action-section">
+            <button class="action-btn reject" (click)="rejectClaim(selectedClaim.id!)">
+              <i class="fas fa-times"></i> Reject Claim
+            </button>
+            <button class="action-btn approve" (click)="approveClaim(selectedClaim.id!)">
+              <i class="fas fa-check"></i> Approve Claim
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty details state -->
+      <div class="empty-details" *ngIf="!selectedClaim">
+        <div class="empty-state">
+          <div class="empty-icon">
+            <i class="fas fa-file-search"></i>
+          </div>
+          <h3>Select a claim to review</h3>
+          <p>Choose a claim from the list to view details and take action</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty claims state -->
+    <div class="empty-claims" *ngIf="claims.length === 0">
+      <div class="empty-content">
+        <div class="empty-illustration">
+          <i class="fas fa-folder-open"></i>
+        </div>
+        <h2>No pending claims</h2>
+        <p>All claims have been processed. Check back later for new submissions.</p>
+      </div>
+    </div>
+  </div>
+</div>
