@@ -17,7 +17,7 @@ spec:
       containers:
       - name: auth-service
         image: auth-service:latest
-        imagePullPolicy: Never     # <--- add this line
+        imagePullPolicy: Never     
         ports:
         - containerPort: 5001
         resources:
