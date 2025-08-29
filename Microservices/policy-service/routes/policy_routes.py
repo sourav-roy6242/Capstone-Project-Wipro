@@ -5,7 +5,7 @@ from models import Policy
 
 policy_bp = Blueprint("policy_bp", __name__)
 
-# ----------- User requests a new policy -----------
+# User requests a new policy 
 @policy_bp.route("/policies", methods=["POST"])
 def request_policy():
     data = request.get_json()
@@ -24,7 +24,7 @@ def request_policy():
     return jsonify({"message": "Policy requested", "policy": new_policy.serialize()}), 201
 
 
-# ----------- Agent approves policy -----------
+# Agent approves policy 
 @policy_bp.route("/policies/<int:policy_id>/agent-approve", methods=["PUT"])
 def agent_approve(policy_id):
     policy = Policy.query.get(policy_id)
@@ -43,7 +43,7 @@ def agent_approve(policy_id):
     return jsonify({"message": "Approved by agent", "policy": policy.serialize()}), 200
 
 
-# ----------- Admin approves policy -----------
+# Admin approves policy 
 @policy_bp.route("/policies/<int:policy_id>/admin-approve", methods=["PUT"])
 def admin_approve(policy_id):
     policy = Policy.query.get(policy_id)
