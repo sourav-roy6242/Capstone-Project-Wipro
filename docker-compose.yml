@@ -1,8 +1,54 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - gateway
+
+  auth-service:
+    build:
+      context: ./Microservices/auth-service
+    container_name: auth-service
+    ports:
+      - "5001:5001"
+
+  policy-service:
+    build:
+      context: ./Microservices/policy-service
+    container_name: policy-service
+    ports:
+      - "5002:5002"
+
+  claim-service:
+    build:
+      context: ./Microservices/claim-service
+    container_name: claim-service
+    ports:
+      - "5000:5000"
+
+  gateway:
+    build:
+      context: ./api-gateway
+    container_name: gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth-service
+      - policy-service
+      - claim-service
+
+
+
+#this code for Specially for scaling purpose we will not use this code now 
 # services:
 #   frontend:
 #     build:
 #       context: ./frontend
-#     container_name: frontend
 #     ports:
 #       - "4200:80"
 #     depends_on:
@@ -11,72 +57,27 @@
 #   auth-service:
 #     build:
 #       context: ./backend/auth-service
-#     container_name: auth-service
 #     ports:
 #       - "5001:5001"
 
 #   policy-service:
 #     build:
 #       context: ./backend/policy-service
-#     container_name: policy-service
 #     ports:
 #       - "5002:5002"
 
 #   claim-service:
 #     build:
 #       context: ./backend/claim-service
-#     container_name: claim-service
-#     ports:
-#       - "5000:5000"
+#     # DO NOT expose host ports for scaling
+#     # Container internal port 5000 will be used for internal communication
 
 #   gateway:
 #     build:
 #       context: ./api-gateway
-#     container_name: gateway
 #     ports:
 #       - "3000:3000"
 #     depends_on:
 #       - auth-service
 #       - policy-service
 #       - claim-service
-
-
-
-
-
-services:
-  frontend:
-    build:
-      context: ./frontend
-    ports:
-      - "4200:80"
-    depends_on:
-      - gateway
-
-  auth-service:
-    build:
-      context: ./backend/auth-service
-    ports:
-      - "5001:5001"
-
-  policy-service:
-    build:
-      context: ./backend/policy-service
-    ports:
-      - "5002:5002"
-
-  claim-service:
-    build:
-      context: ./backend/claim-service
-    # DO NOT expose host ports for scaling
-    # Container internal port 5000 will be used for internal communication
-
-  gateway:
-    build:
-      context: ./api-gateway
-    ports:
-      - "3000:3000"
-    depends_on:
-      - auth-service
-      - policy-service
-      - claim-service
