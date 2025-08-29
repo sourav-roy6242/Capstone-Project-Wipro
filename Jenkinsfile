@@ -14,8 +14,6 @@ pipeline {
 
         stage('Build Docker Images') {
             steps {
-                echo "Building Docker images for frontend, gateway, and microservices..."
-                
                 sh 'docker-compose build'
             }
         }
@@ -31,14 +29,14 @@ pipeline {
             steps {
                 script {
                     echo "Deploying to Kubernetes..."
-
-                
+                    
+                    
                     sh 'kubectl config current-context || true'
-
-                  
+                    
+                    
                     sh 'kubectl cluster-info'
-
-               
+                    
+                 
                     sh 'kubectl apply -f k8s/'
                 }
             }
@@ -52,3 +50,4 @@ pipeline {
         }
     }
 }
+
